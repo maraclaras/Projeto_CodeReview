@@ -1,9 +1,23 @@
 public class Veiculo {
-  String placa;
-  String modelo;
-  Cliente proprietario;
+ private String placa;
+ private String modelo;
+ private Cliente proprietario;
 
-  void vincularCliente(Cliente cliente) {
+ public Veiculo(string placa, string modelo, Cliente proprietario) {
+   this.placa = placa;
+   this.modelo = modelo;
+   this.proprietario = proprietario;
+ }
+
+ public String getPlaca() {
+   return placa;
+  }
+
+  public Cliente getProprietario() {
+    return proprietario;
+  }
+
+  public void vincularCliente(Cliente cliente) {
       this.proprietario = cliente;
       cliente.vincularVeiculo(this); 
   }
