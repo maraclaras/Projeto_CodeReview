@@ -1,9 +1,13 @@
 public class ParqueEstacionamento {
-  int id;
-  int vagasTotais;
-Cliente = new Cliente();
-  void ListarClientes(Cliente cliente){
+  private int id;
+  private int vagasTotais;
+
+Cliente cliente = new Cliente(null, null);
+
+  public String listarClientes(Cliente cliente){
+    return cliente.toString();
   }
-  void ListarVagas(Vaga vaga(int numero, veiculoNaVaga)){
-  })
+  public String listarVagas(int numero, Vaga veiculoNaVaga){
+    return String.valueOf(vagasTotais);
+  }
 }
