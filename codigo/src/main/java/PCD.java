@@ -16,5 +16,10 @@ public class PCD extends Vaga {
     public boolean isEspacoMaior() {
         return espacoMaior;
     }
+    @Override
+    public double calcularTaxa() {
+        return 1.20 * new Cobranca().mostrarValorTotal();  // 20% mais caro
+    }
+}
 }
 

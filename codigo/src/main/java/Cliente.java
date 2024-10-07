@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.List; //pra conseguir listar
+import java.util.List;
 
 public class Cliente {
     private String nome;
@@ -12,24 +12,6 @@ public class Cliente {
         this.listaVeiculos = new ArrayList<>();
     }
 
-    public void criarCliente() {
-        System.out.println("Cliente criado: " + nome + ", CPF: " + cpf);
-    }
-
-    public void removerCliente() {
-        System.out.println("Cliente removido: " + nome + ", CPF: " + cpf);
-    }
-
-    public void alterarCliente(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
-        System.out.println("Cliente alterado: " + nome + ", CPF: " + cpf);
-    }
-
-    public void vincularVeiculo(Veiculo veiculo) {
-        veiculo.vincularCliente(this);
-    }
-
     public void adicionarVeiculo(Veiculo veiculo) {
         listaVeiculos.add(veiculo);
     }
@@ -38,11 +20,19 @@ public class Cliente {
         return listaVeiculos;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getCpf() {
         return cpf;
     }
 
-    public String getNome() {
-        return nome;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

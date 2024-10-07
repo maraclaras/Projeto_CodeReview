@@ -1,29 +1,33 @@
 public class Veiculo {
-  private String placa;
-  private String modelo; // Correto agora
-  private Cliente proprietario;
+    private String placa;
+    private String modelo;
+    private Cliente proprietario;
 
-  public Veiculo(String placa, String modelo, Cliente proprietario) {
-      this.placa = placa;
-      this.modelo = modelo;
-      this.proprietario = proprietario;
-  }
+    // Construtor que inicializa a placa e o modelo
+    public Veiculo(String placa, String modelo) {
+        this.placa = placa;
+        this.modelo = modelo;
+        this.proprietario = null; // Inicialmente, o veículo não tem proprietário
+    }
 
-  // Getter para o campo modelo
-  public String getModelo() {
-      return modelo;
-  }
+    // Getter para o modelo
+    public String getModelo() {
+        return modelo;
+    }
 
-  public String getPlaca() {
-      return placa;
-  }
+    // Getter para a placa
+    public String getPlaca() {
+        return placa;
+    }
 
-  public Cliente getProprietario() {
-      return proprietario;
-  }
+    // Getter para o proprietário
+    public Cliente getProprietario() {
+        return proprietario;
+    }
 
-  public void vincularCliente(Cliente cliente) {
-      this.proprietario = cliente;
-      cliente.vincularVeiculo(this); 
-  }
+    // Método para vincular o cliente (proprietário) ao veículo
+    public void vincularCliente(Cliente cliente) {
+        this.proprietario = cliente;
+        cliente.adicionarVeiculo(this); // Vincula o veículo ao cliente
+    }
 }
