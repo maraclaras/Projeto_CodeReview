@@ -1,3 +1,4 @@
+import java.nio.channels.Pipe.SourceChannel;
 import java.util.Scanner;
 
 public class Main {
@@ -16,6 +17,7 @@ public class Main {
             System.out.println("(1) Área do Cliente");
             System.out.println("(2) Listar Clientes");
             System.out.println("(3) Listar Vagas");
+            System.out.println("(4) Calcular Taxa");
             System.out.println("(4) SAIR");
 
             opcao = leitor.nextInt();
@@ -31,6 +33,10 @@ public class Main {
                     estacionamento.listarVagas(); // Lista as vagas do estacionamento
                     break;
                 case 4:
+                    Cobranca cobranca = new Cobranca();
+                    cobranca.calcularTaxaCliente(estacionamento, leitor);  
+                    break;
+                case 5:
                     System.out.println("Saindo do sistema...");
                     break;
                 default:
@@ -61,7 +67,7 @@ public class Main {
             System.out.println("Digite a placa do veículo:");
             String placa = leitor.next();
             System.out.println("Digite o modelo do veículo:");
-            String modelo = leitor.nextLine();
+            String modelo = leitor.next();
 
             Veiculo veiculo = new Veiculo(placa, modelo);
             estacionamento.estacionarVeiculo(veiculo, cliente); // Estaciona o veículo
