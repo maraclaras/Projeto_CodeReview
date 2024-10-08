@@ -3,6 +3,7 @@ import java.util.HashMap;
 
 public class ParqueEstacionamento {
     private ArrayList<Cliente> clientes;
+    private HashMap<Veiculo, Cliente> veiculoClienteMap; // Mapeia veículos para seus respectivos clientes
     private HashMap<Veiculo, Vaga> vagasOcupadas; // Mapeia veículos para suas respectivas vagas
     private ArrayList<Vaga> vagas;
 
@@ -37,35 +38,33 @@ public class ParqueEstacionamento {
         }
         return null; // Cliente não encontrado
     }
-public void ocupar() {
-    if (ocupada) {
-        System.out.println("A vaga " + identificador + " já está ocupada.");
-        return; // Ou você pode lançar uma exceção aqui se preferir.
-    }
-    this.ocupada = true; // Marca a vaga como ocupada.
-}
-    public void estacionarVeiculo(Veiculo veiculo, Cliente cliente) {
-        // Lógica para estacionar o veículo e associá-lo a uma vaga
-        for (Vaga vaga : vagas) {
-            if (!vaga.isOcupada()) {
-                vaga.ocupar(); // Chama o método ocupar, assumindo que não lançará exceção
+public void estacionarVeiculo(Veiculo veiculo, Cliente cliente) {
+    // Lógica para estacionar o veículo e associá-lo a uma vaga
+    for (Vaga vaga : vagas) {
+        if (!vaga.isOcupada()) {
+            try {
+                vaga.ocupar(); // Tenta ocupar a vaga
                 vagasOcupadas.put(veiculo, vaga);
                 System.out.println("Veículo " + veiculo.getPlaca() + " estacionado na vaga " + vaga.getIdentificador());
                 return;
+            } catch (VagaInvalidaException e) {
+                System.out.println(e.getMessage());
             }
         }
-        System.out.println("Não há vagas disponíveis.");
     }
+    System.out.println("Não há vagas disponíveis.");
+}
+
 
     public Veiculo buscarVeiculoPorCliente(Cliente cliente) {
-        for (HashMap.Entry<Veiculo, Vaga> entry : vagasOcupadas.entrySet()) {
-            if (entry.getKey().getCliente().equals(cliente)) {
+        veiculoClienteMap = new HashMap<>();
+        for (HashMap.Entry<Veiculo, Cliente> entry : veiculoClienteMap.entrySet()) {
+            if (entry.getValue().equals(cliente)) {
                 return entry.getKey(); // Retorna o veículo associado ao cliente
             }
         }
         return null; // Veículo não encontrado
     }
-
     public Vaga obterVagaPorVeiculo(Veiculo veiculo) {
         return vagasOcupadas.get(veiculo); // Retorna a vaga ocupada pelo veículo
     }

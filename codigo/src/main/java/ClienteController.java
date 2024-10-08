@@ -67,15 +67,18 @@ public class ClienteController {
   }
 
   private void adicionarVeiculo() {
-      if (cliente != null) {
-          String placa = view.solicitarPlacaVeiculo();
-          Veiculo veiculo = new Veiculo(placa);
-          cliente.adicionarVeiculo(veiculo);
-          view.exibirMensagem("Veículo adicionado: " + placa);
-      } else {
-          view.exibirMensagem("Nenhum cliente cadastrado.");
-      }
-  }
+    if (cliente != null) {
+        String placa = view.solicitarPlacaVeiculo();
+        Veiculo veiculo = new Veiculo (placa);
+        cliente.adicionarVeiculo(veiculo);
+        view.exibirMensagem("Veículo adicionado: " + placa);
+    } else {
+        view.exibirMensagem("Nenhum cliente cadastrado.");
+    }
+}
+
+
+
 
   private void listarVeiculos() {
       if (cliente != null) {

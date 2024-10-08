@@ -1,5 +1,6 @@
-public class VagaInvalidaException extends Exception {
-    // Construtor sem parâmetros
+
+public class VagaInvalidaException extends Exception { // Extende Exception
+    // Construtor padrão
     public VagaInvalidaException() {
         super("Vaga inválida."); // Mensagem padrão
     }

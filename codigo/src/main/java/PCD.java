@@ -1,25 +1,17 @@
 public class PCD extends Vaga {
+    private boolean espacoSuficiente;  // Verificação de espaço adequado para PCD
 
-    private double taxaPCD;
-    private static final double DESCONTO = 0.13; //Pros 13% de desconto por PCD
-    private boolean espacoMaior;// o enunciado coloca como caracteristica, logo tem q verificar
-
-    public PCD(int numero, double taxaPCD, boolean espacoMaior) {
-        super(numero);
-        this.taxaPCD = taxaPCD;
-        this.espacoMaior = espacoMaior;
-    }
-    public double calcularTaxa() {
-        return this.taxaPCD * (1 - DESCONTO); // Aplica o desconto de 13%
+    public PCD(String identificador, int maxVagasPermitidas, boolean espacoSuficiente) throws VagaInvalidaException {
+        super(identificador, maxVagasPermitidas); // Passa o identificador e o número máximo de vagas
+        if (!espacoSuficiente) {
+            throw new VagaInvalidaException("A vaga PCD precisa de espaço suficiente para manusear dispositivos como cadeira de rodas.");
+        }
+        this.espacoSuficiente = espacoSuficiente;
     }
 
-    public boolean isEspacoMaior() {
-        return espacoMaior;
-    }
+    // Calcula a taxa aplicando 13% de desconto para PCD
     @Override
-    public double calcularTaxa() {
-        return 1.20 * new Cobranca().mostrarValorTotal();  // 20% mais caro
+    public double calcularTaxa(double valorBase) {
+        return valorBase * 0.87f;  // Aplica 13% de desconto
     }
 }
-}
-

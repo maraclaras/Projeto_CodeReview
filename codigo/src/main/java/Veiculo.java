@@ -9,6 +9,9 @@ public class Veiculo {
         this.modelo = modelo;
         this.proprietario = null; // Inicialmente, o veículo não tem proprietário
     }
+    public Veiculo(String placa){
+        this.placa = placa;
+    }
 
     // Getter para o modelo
     public String getModelo() {
@@ -29,5 +32,9 @@ public class Veiculo {
     public void vincularCliente(Cliente cliente) {
         this.proprietario = cliente;
         cliente.adicionarVeiculo(this); // Vincula o veículo ao cliente
+    }
+    @Override
+    public String toString(){
+        return "Veículo com placa: " + placa;
     }
 }

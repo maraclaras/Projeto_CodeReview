@@ -1,13 +1,16 @@
 public class Idosos extends Vaga {
-private double taxaIdoso;
-private static final double DESCONTO = 0.15; //Pros 15% de desconto por idoso 
+    private static final double DESCONTO = 0.15; // 15% de desconto para idosos
+    private double taxaBase; // Taxa base a ser aplicada
 
-public Idosos(int numero, double taxaIdoso) {	
-super(numero);
-this.taxaIdoso = taxaIdoso;
-}
+    // Construtor da classe Idosos
+    public Idosos(String identificador, double taxaBase) throws VagaInvalidaException {	
+        super(identificador, 1); // Chama o construtor da superclasse com um identificador e 1 como número máximo de vagas
+        this.taxaBase = taxaBase; // Inicializa a taxa base
+    }
 
-public double calcularTaxa() {
-return this.taxaIdoso * (1 - DESCONTO); // Aplica o desconto de 15%
-}
-}
+    // Método para calcular a taxa com desconto
+    @Override
+    public double calcularTaxa(float valorBase) {
+        return this.taxaBase * (1 - DESCONTO);
+    }
+}    

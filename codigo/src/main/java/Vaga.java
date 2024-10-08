@@ -1,4 +1,4 @@
-public abstract class Vaga {
+public class Vaga{
   private String identificador;
   private boolean ocupada;
   private static int maxVagas;  // Número máximo de vagas permitido no estacionamento
@@ -34,16 +34,17 @@ public abstract class Vaga {
 
   // Método para ocupar a vaga
   public void ocupar() throws VagaInvalidaException {
-      if (ocupada) {
-          throw new VagaInvalidaException("A vaga " + identificador + " já está ocupada.");
-      }
-      this.ocupada = true;
-  }
-
+    if (ocupada) {
+        throw new VagaInvalidaException("A vaga " + identificador + " já está ocupada.");
+    }
+    this.ocupada = true; // Marca a vaga como ocupada
+    System.out.println("A vaga " + identificador + " foi ocupada.");
+}
   // Método para liberar a vaga
   public void liberar() {
-      this.ocupada = false;
-  }
+    this.ocupada = false; // Marca a vaga como livre
+    System.out.println("A vaga " + identificador + " foi liberada.");
+}
 
   // Método para verificar se a vaga está ocupada
   public boolean isOcupada() {
@@ -55,8 +56,9 @@ public abstract class Vaga {
       return identificador;
   }
 
-  // Método abstrato para calcular a taxa, deve ser implementado nas subclasses
-  public abstract float calcularTaxa(float valorBase);
+  public double calcularTaxa(double valorBase){
+    return valorBase;
+  }
 
   @Override
   public String toString() {
