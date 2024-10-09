@@ -11,6 +11,7 @@ public class ParqueEstacionamento {
         clientes = new ArrayList<>();
         vagas = new ArrayList<>();
         vagasOcupadas = new HashMap<>();
+        veiculoClienteMap = new HashMap<>();  // Inicializa o veiculoClienteMap
     
         // Inicializar as vagas
         for (int i = 0; i < numFilas; i++) {
@@ -25,7 +26,6 @@ public class ParqueEstacionamento {
         }
     }
     
-
     public void registrarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
@@ -36,37 +36,42 @@ public class ParqueEstacionamento {
                 return cliente;
             }
         }
-        return null; // Cliente não encontrado
+        return null; // Retorna null se o cliente não for encontrado
     }
-public void estacionarVeiculo(Veiculo veiculo, Cliente cliente) {
-    // Lógica para estacionar o veículo e associá-lo a uma vaga
-    for (Vaga vaga : vagas) {
-        if (!vaga.isOcupada()) {
-            try {
-                vaga.ocupar(); // Tenta ocupar a vaga
-                vagasOcupadas.put(veiculo, vaga);
-                System.out.println("Veículo " + veiculo.getPlaca() + " estacionado na vaga " + vaga.getIdentificador());
-                return;
-            } catch (VagaInvalidaException e) {
-                System.out.println(e.getMessage());
+
+    public void estacionarVeiculo(Veiculo veiculo, Cliente cliente) {
+        // Lógica para estacionar o veículo e associá-lo a uma vaga
+        for (Vaga vaga : vagas) {
+            if (!vaga.isOcupada()) {
+                try {
+                    vaga.ocupar(); // Tenta ocupar a vaga
+                    vagasOcupadas.put(veiculo, vaga);
+                    veiculoClienteMap.put(veiculo, cliente); // Associa o veículo ao cliente
+                    System.out.println("Veículo " + veiculo.getPlaca() + " estacionado na vaga " + vaga.getIdentificador());
+                    return;
+                } catch (VagaInvalidaException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
+        System.out.println("Não há vagas disponíveis.");
     }
-    System.out.println("Não há vagas disponíveis.");
-}
 
-
-    public Veiculo buscarVeiculoPorCliente(Cliente cliente) {
-        veiculoClienteMap = new HashMap<>();
-        for (HashMap.Entry<Veiculo, Cliente> entry : veiculoClienteMap.entrySet()) {
-            if (entry.getValue().equals(cliente)) {
-                return entry.getKey(); // Retorna o veículo associado ao cliente
-            }
-        }
-        return null; // Veículo não encontrado
-    }
     public Vaga obterVagaPorVeiculo(Veiculo veiculo) {
         return vagasOcupadas.get(veiculo); // Retorna a vaga ocupada pelo veículo
+    }
+
+    // Método para buscar o veículo associado a um cliente
+    public Veiculo buscarVeiculoPorCliente(Cliente cliente) {
+        // Itera sobre o mapa de veículos e clientes
+        for (Veiculo veiculo : veiculoClienteMap.keySet()) {
+            // Verifica se o cliente associado ao veículo é o cliente buscado
+            if (veiculoClienteMap.get(veiculo).equals(cliente)) {
+                return veiculo;
+            }
+        }
+        // Retorna null se nenhum veículo for encontrado para o cliente
+        return null;
     }
 
     public void listarClientes() {
