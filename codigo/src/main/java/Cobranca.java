@@ -38,32 +38,31 @@ public class Cobranca {
         System.out.println("Digite o CPF do cliente:");
         String cpf = leitor.next();
 
-        // Aqui você deve buscar o cliente pelo CPF
+        // Busca o cliente pelo CPF
         Cliente cliente = estacionamento.buscarClientePorCpf(cpf);
         if (cliente == null) {
             System.out.println("Cliente não encontrado.");
             return;
         }
-
-        // Aqui você deve buscar o veículo associado a esse cliente
+        // Busca o veículo associado a esse cliente
         Veiculo veiculo = estacionamento.buscarVeiculoPorCliente(cliente);
         if (veiculo == null) {
             System.out.println("Veículo não encontrado para o cliente.");
             return;
         }
 
-        // Calcular a taxa, por exemplo, baseado em minutos de estacionamento
+        // Pergunta pelo tempo de estacionamento
         System.out.println("Digite o tempo (em minutos) que o veículo ficou estacionado:");
         int minutosEstacionados = leitor.nextInt();
 
-        // Supondo que você tenha um método na classe para obter a vaga do veículo
+        // Obtém a vaga onde o veículo está estacionado
         Vaga vaga = estacionamento.obterVagaPorVeiculo(veiculo);
         if (vaga == null) {
             System.out.println("Vaga não encontrada para o veículo.");
             return;
         }
 
-        // Calcular o valor a ser cobrado
+        // Calcula o valor a ser cobrado
         double valor = calcularValor(minutosEstacionados, vaga);
         System.out.println("Valor a ser cobrado para o cliente " + cpf + ": R$ " + valor);
 

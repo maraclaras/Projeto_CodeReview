@@ -1,13 +1,17 @@
 import java.util.Scanner;
 
 public class ClienteView {
-    private Scanner scanner = new Scanner(System.in);
-    private ClienteController clienteController = new ClienteController(); // Adicione o controller
+    private Scanner scanner;
+    private ClienteController clienteController;
     private ParqueEstacionamento parqueEstacionamento;
 
-    public ClienteView(ParqueEstacionamento parqueEstacionamento) {
+    // Construtor que recebe o ParqueEstacionamento e o ClienteController
+    public ClienteView(ParqueEstacionamento parqueEstacionamento, ClienteController clienteController) {
         this.parqueEstacionamento = parqueEstacionamento;
+        this.clienteController = clienteController;
+        this.scanner = new Scanner(System.in);
     }
+
     // Exibe o menu de operações com o cliente
     public void exibirMenu() {
         int opcao;
@@ -19,7 +23,8 @@ public class ClienteView {
             System.out.println("4. Adicionar veículo ao cliente");
             System.out.println("5. Listar veículos do cliente");
             System.out.println("6. Listar todos os clientes");
-            System.out.println("7. Sair");
+            System.out.println("7. Calcular cobrança de cliente");
+            System.out.println("8. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // Consumir quebra de linha
@@ -44,12 +49,15 @@ public class ClienteView {
                     listarTodosClientes();
                     break;
                 case 7:
+                    calcularCobrancaCliente();
+                    break;
+                case 8:
                     System.out.println("Saindo...");
                     break;
                 default:
                     System.out.println("Opção inválida.");
             }
-        } while (opcao != 7);
+        } while (opcao != 8);
     }
 
     // Cria um novo cliente
@@ -82,8 +90,11 @@ public class ClienteView {
     private void removerCliente() {
         System.out.print("Digite o CPF do cliente para remover: ");
         String cpf = scanner.nextLine();
-        clienteController.removerCliente(cpf);
-        System.out.println("Cliente removido com sucesso.");
+        if (clienteController.removerCliente(cpf)) {
+            System.out.println("Cliente removido com sucesso.");
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
     }
 
     // Adiciona um veículo ao cliente
@@ -124,10 +135,12 @@ public class ClienteView {
             System.out.println("Nome: " + cliente.getNome() + ", CPF: " + cliente.getCpf());
         }
     }
-    public void calcularCobrancaCliente() {
+
+    // Calcula a cobrança de um cliente
+    private void calcularCobrancaCliente() {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
-    
+
         Cliente cliente = parqueEstacionamento.buscarClientePorCpf(cpf);
         if (cliente != null) {
             Veiculo veiculo = parqueEstacionamento.buscarVeiculoPorCliente(cliente);
@@ -137,11 +150,11 @@ public class ClienteView {
                     System.out.print("Digite o tempo (em minutos) que o veículo ficou estacionado: ");
                     int minutos = scanner.nextInt();
                     scanner.nextLine(); // Consumir a quebra de linha
-    
+
                     Cobranca cobranca = new Cobranca();
                     double valor = cobranca.calcularValor(minutos, vaga);
                     System.out.println("Valor total da cobrança: R$ " + valor);
-    
+
                     // Cobrar o cliente
                     cobranca.cobrarCliente(cpf, valor);
                 } else {
@@ -154,4 +167,4 @@ public class ClienteView {
             System.out.println("Cliente não encontrado.");
         }
     }
-
+}

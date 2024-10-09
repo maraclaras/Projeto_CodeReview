@@ -10,7 +10,7 @@ public class Idosos extends Vaga {
 
     // Método para calcular a taxa com desconto
     @Override
-    public double calcularTaxa(float valorBase) {
+    public double calcularTaxa(double valorBase) {
         return this.taxaBase * (1 - DESCONTO);
     }
 }    

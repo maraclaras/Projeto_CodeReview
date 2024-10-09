@@ -1,90 +1,66 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class ClienteController {
-  private Cliente cliente;
-  private ClienteView view;
+    private List<Cliente> clientes;
+    private ParqueEstacionamento estacionamento;
+    private Scanner leitor;
 
-  public ClienteController(ClienteView view) {
-      this.view = view;
-  }
-
-  // Inicia o menu de clientes
-  public void iniciar() {
-      int opcao;
-      do {
-          opcao = view.exibirMenu(); // Usa a view para exibir o menu e capturar a opção
-
-          switch (opcao) {
-              case 1:
-                  criarCliente();
-                  break;
-              case 2:
-                  alterarCliente();
-                  break;
-              case 3:
-                  removerCliente();
-                  break;
-              case 4:
-                  adicionarVeiculo();
-                  break;
-              case 5:
-                  listarVeiculos();
-                  break;
-              case 6:
-                  view.exibirMensagem("Saindo da área do cliente...");
-                  break;
-              default:
-                  view.exibirMensagem("Opção inválida!");
-                  break;
-          }
-      } while (opcao != 6);
-  }
-
-  private void criarCliente() {
-      String nome = view.solicitarNomeCliente();
-      String cpf = view.solicitarCpfCliente();
-      cliente = new Cliente(nome, cpf);
-      view.exibirMensagem("Cliente criado: " + nome + ", CPF: " + cpf);
-  }
-
-  private void alterarCliente() {
-      if (cliente != null) {
-          String novoNome = view.solicitarNomeCliente();
-          String novoCpf = view.solicitarCpfCliente();
-          cliente.setNome(novoNome);
-          cliente.setCpf(novoCpf);
-          view.exibirMensagem("Cliente alterado: " + novoNome + ", CPF: " + novoCpf);
-      } else {
-          view.exibirMensagem("Nenhum cliente cadastrado.");
-      }
-  }
-
-  private void removerCliente() {
-      if (cliente != null) {
-          view.exibirMensagem("Cliente removido: " + cliente.getNome() + ", CPF: " + cliente.getCpf());
-          cliente = null;
-      } else {
-          view.exibirMensagem("Nenhum cliente cadastrado.");
-      }
-  }
-
-  private void adicionarVeiculo() {
-    if (cliente != null) {
-        String placa = view.solicitarPlacaVeiculo();
-        Veiculo veiculo = new Veiculo (placa);
-        cliente.adicionarVeiculo(veiculo);
-        view.exibirMensagem("Veículo adicionado: " + placa);
-    } else {
-        view.exibirMensagem("Nenhum cliente cadastrado.");
+    // Construtor que recebe ParqueEstacionamento e Scanner
+    public ClienteController(ParqueEstacionamento estacionamento, Scanner leitor) {
+        this.clientes = new ArrayList<>();
+        this.estacionamento = estacionamento; // Armazena a referência do estacionamento
+        this.leitor = leitor; // Armazena a referência do scanner
     }
-}
 
+    // Busca um cliente pelo CPF
+    public Cliente buscarCliente(String cpf) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getCpf().equals(cpf)) {
+                return cliente; // Retorna o cliente encontrado
+            }
+        }
+        return null; // Retorna null se o cliente não for encontrado
+    }
 
+    // Altera um cliente existente
+    public boolean alterarCliente(String cpf, String novoNome) {
+        Cliente cliente = buscarCliente(cpf);
+        if (cliente != null) {
+            cliente.setNome(novoNome); // Altera o nome do cliente
+            return true; // Retorna true se a alteração for bem-sucedida
+        }
+        return false; // Retorna false se o cliente não for encontrado
+    }
 
+    // Remove um cliente e retorna se foi bem-sucedido
+    public boolean removerCliente(String cpf) {
+        Cliente cliente = buscarCliente(cpf);
+        if (cliente != null) {
+            clientes.remove(cliente); // Remove o cliente da lista
+            return true; // Retorna true se a remoção for bem-sucedida
+        }
+        return false; // Retorna false se o cliente não for encontrado
+    }
 
-  private void listarVeiculos() {
-      if (cliente != null) {
-          view.listarVeiculos(cliente);
-      } else {
-          view.exibirMensagem("Nenhum cliente cadastrado.");
-      }
-  }
+    // Adiciona um cliente
+    public void adicionarCliente(Cliente cliente) {
+        clientes.add(cliente); // Adiciona um novo cliente à lista
+    }
+
+    // Lista todos os clientes
+    public List<Cliente> listarClientes() {
+        return clientes; // Retorna a lista de clientes
+    }
+
+    // Adiciona um veículo ao cliente
+    public boolean adicionarVeiculo(String cpf, Veiculo veiculo) {
+        Cliente cliente = buscarCliente(cpf); // Busca o cliente pelo CPF
+        if (cliente != null) {
+            cliente.adicionarVeiculo(veiculo); // Adiciona o veículo ao cliente
+            return true; // Retorna true se a adição for bem-sucedida
+        }
+        return false; // Retorna false se o cliente não for encontrado
+    }
 }
