@@ -1,3 +1,7 @@
+package modal;
+
+import exceptions.VagaInvalidaException;
+
 public class Idosos extends Vaga {
     private static final double DESCONTO = 0.15; // 15% de desconto para idosos
     private double taxaBase; // Taxa base a ser aplicada

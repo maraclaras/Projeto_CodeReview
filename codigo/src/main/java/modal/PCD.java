@@ -1,3 +1,7 @@
+package modal;
+
+import exceptions.VagaInvalidaException;
+
 public class PCD extends Vaga {
     private boolean espacoSuficiente;  // Verificação de espaço adequado para PCD
 

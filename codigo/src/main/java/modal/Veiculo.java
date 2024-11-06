@@ -1,3 +1,4 @@
+package modal;
 public class Veiculo {
     private String placa;
     private String modelo;
@@ -9,7 +10,8 @@ public class Veiculo {
         this.modelo = modelo;
         this.proprietario = null; // Inicialmente, o veículo não tem proprietário
     }
-    public Veiculo(String placa){
+
+    public Veiculo(String placa) {
         this.placa = placa;
     }
 
@@ -33,8 +35,9 @@ public class Veiculo {
         this.proprietario = cliente;
         cliente.adicionarVeiculo(this); // Vincula o veículo ao cliente
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Veículo com placa: " + placa;
     }
 }

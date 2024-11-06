@@ -1,3 +1,7 @@
+package modal;
+
+import exceptions.VagaInvalidaException;
+
 public class Vaga{
   private String identificador;
   private boolean ocupada;

@@ -1,3 +1,7 @@
+package modal;
+
+import exceptions.VagaInvalidaException;
+
 public class VIP extends Vaga {
     private double taxaVip;
     private static final double ADICIONAL = 0.20; // 20% de aumento por VIP

@@ -1,3 +1,4 @@
+package exceptions;
 
 public class VagaInvalidaException extends Exception { // Extende Exception
     // Construtor padrão
