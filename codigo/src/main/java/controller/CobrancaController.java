@@ -1,4 +1,11 @@
+package controller;
 import java.util.Scanner;
+
+import modal.Cliente;
+import modal.Cobranca;
+import modal.ParqueEstacionamento;
+import modal.Vaga;
+import modal.Veiculo;
 
 public class CobrancaController {
     private ParqueEstacionamento estacionamento;

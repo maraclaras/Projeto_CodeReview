@@ -1,6 +1,11 @@
+package controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import modal.Cliente;
+import modal.ParqueEstacionamento;
+import modal.Veiculo;
 
 public class ClienteController {
     private List<Cliente> clientes;
