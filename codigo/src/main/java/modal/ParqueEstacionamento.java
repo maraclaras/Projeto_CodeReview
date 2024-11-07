@@ -1,5 +1,6 @@
 package modal;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -42,16 +43,30 @@ public class ParqueEstacionamento {
         return null;
     }
 
-    public void estacionarVeiculo(Veiculo veiculo, Cliente cliente) throws VagaInvalidaException {
+    public void estacionarVeiculo(Vaga vaga, Veiculo veiculo, LocalDateTime entrada) throws VagaInvalidaException {
+        if (!vaga.isOcupada()) {
+            vaga.ocupar();
+            // Adicione lógica adicional para registrar o horário de entrada, se necessário
+            vagasOcupadas.put(veiculo, vaga);
+            veiculoClienteMap.put(veiculo, veiculo.getProprietario());
+        } else {
+            throw new VagaInvalidaException("A vaga já está ocupada.");
+        }
+    }
+
+    public void liberarVaga(Vaga vaga, LocalDateTime saida) {
+        vaga.liberar();
+        // Adicione lógica adicional para registrar o horário de saída, se necessário
+        vagasOcupadas.remove(vaga);
+    }
+
+    public Vaga obterVagaPorIdentificador(String identificador) {
         for (Vaga vaga : vagas) {
-            if (!vaga.isOcupada()) {
-                vaga.ocupar();
-                vagasOcupadas.put(veiculo, vaga);
-                veiculoClienteMap.put(veiculo, cliente);
-                return;
+            if (vaga.getIdentificador().equals(identificador)) {
+                return vaga;
             }
         }
-        throw new VagaInvalidaException("Não há vagas disponíveis.");
+        return null;
     }
 
     public Vaga obterVagaPorVeiculo(Veiculo veiculo) {

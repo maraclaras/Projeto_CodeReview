@@ -1,22 +1,26 @@
 package main;
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
 import controller.ClienteController;
 import controller.CobrancaController;
-import modal.ParqueEstacionamento;
+import controller.ParqueEstacionamentoController;
 import view.ClienteView;
+import view.EstacionamentoView;
 
 public class Main {
     public static void main(String[] args) {
-        ParqueEstacionamento estacionamento = new ParqueEstacionamento(1, 10);
         Scanner leitor = new Scanner(System.in);
-        ClienteController clienteController = new ClienteController(estacionamento, leitor);
-        CobrancaController cobrancaController = new CobrancaController(estacionamento, leitor);
-        ClienteView clienteView = new ClienteView(estacionamento, clienteController);
+        // Inicializa o Parque de Estacionamento e Controladores
+        ParqueEstacionamentoController estacionamentoController = new ParqueEstacionamentoController(1, 10);
+        ClienteController clienteController = new ClienteController(estacionamentoController.getParqueEstacionamento(), leitor);
+        CobrancaController cobrancaController = new CobrancaController(estacionamentoController.getParqueEstacionamento(), leitor);
+
+        // Inicializa as views
+        ClienteView clienteView = new ClienteView(estacionamentoController.getParqueEstacionamento(), clienteController);
+        EstacionamentoView estacionamentoView = new EstacionamentoView(estacionamentoController);
 
         int opcao = 0; // Inicializa a variável opcao
-
         do {
             System.out.println("=======================================");
             System.out.println("            SEJA BEM VINDO AO          ");
@@ -24,41 +28,25 @@ public class Main {
             System.out.println("=======================================");
             System.out.println("          Digite uma opção             ");
             System.out.println("(1) Área do Cliente");
-            System.out.println("(2) Listar Clientes");
-            System.out.println("(3) Listar Vagas");
-            System.out.println("(4) Calcular Taxa");
-            System.out.println("(5) SAIR");
-
-            try {
-                opcao = leitor.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Por favor, insira um número válido.");
-                leitor.next(); // Limpa o buffer
-                continue; // Retorna ao início do loop
-            }
+            System.out.println("(2) Área do Estacionamento");
+            System.out.println("(3) Sair");
+            System.out.print("Escolha uma opção: ");
+            opcao = leitor.nextInt();
+            leitor.nextLine(); // Consumir quebra de linha
 
             switch (opcao) {
                 case 1:
                     clienteView.exibirMenu();
                     break;
                 case 2:
-                    estacionamento.listarClientes();
+                    estacionamentoView.exibirMenu();
                     break;
                 case 3:
-                    estacionamento.listarVagas();
-                    break;
-                case 4:
-                    cobrancaController.calcularTaxaCliente();
-                    break;
-                case 5:
-                    System.out.println("Saindo do sistema...");
+                    System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("Opção inválida, tente novamente.");
-                    break;
+                    System.out.println("Opção inválida.");
             }
-        } while (opcao != 5);
-
-        leitor.close();
+        } while (opcao != 4);
     }
 }

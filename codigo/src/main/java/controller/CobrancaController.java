@@ -1,4 +1,5 @@
 package controller;
+
 import java.util.Scanner;
 
 import modal.Cliente;
@@ -32,19 +33,21 @@ public class CobrancaController {
             return;
         }
 
-        System.out.println("Digite o tempo (em minutos) que o veículo ficou estacionado:");
-        int minutosEstacionados = leitor.nextInt();
-
         Vaga vaga = estacionamento.obterVagaPorVeiculo(veiculo);
         if (vaga == null) {
             System.out.println("Vaga não encontrada para o veículo.");
             return;
         }
 
-        Cobranca cobranca = new Cobranca();
-        double valor = cobranca.calcularValor(minutosEstacionados, vaga);
-        System.out.println("Valor a ser cobrado para o cliente " + cpf + ": R$ " + valor);
+        System.out.print("Digite o tempo (em minutos) que o veículo ficou estacionado: ");
+        int minutos = leitor.nextInt();
+        leitor.nextLine(); // Consumir a quebra de linha
 
+        Cobranca cobranca = new Cobranca();
+        double valor = cobranca.calcularValor(minutos, vaga);
+        System.out.println("Valor total da cobrança: R$ " + valor);
+
+        // Cobrar o cliente
         cobranca.cobrarCliente(cpf, valor);
     }
 }

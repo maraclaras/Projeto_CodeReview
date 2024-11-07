@@ -11,8 +11,16 @@ public class Veiculo {
         this.proprietario = null; // Inicialmente, o veículo não tem proprietário
     }
 
+    // Construtor que inicializa apenas a placa
     public Veiculo(String placa) {
         this.placa = placa;
+    }
+
+    // Novo construtor que inicializa a placa e o proprietário
+    public Veiculo(String placa, Cliente proprietario) {
+        this.placa = placa;
+        this.proprietario = proprietario;
+        proprietario.adicionarVeiculo(this); // Vincula o veículo ao cliente
     }
 
     // Getter para o modelo
