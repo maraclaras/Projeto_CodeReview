@@ -182,7 +182,8 @@ public class TelaListarVeiculosView extends javax.swing.JFrame {
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+     this.setVisible(false); // Oculta a tela atual
+    new TelaClienteView().setVisible(true); 
     }                                        
 
     /**
