@@ -1,8 +1,11 @@
 package modal;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public class Cliente implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String nome;
     private String cpf;
     private List<Veiculo> listaVeiculos;

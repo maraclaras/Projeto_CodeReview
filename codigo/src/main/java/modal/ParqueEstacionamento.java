@@ -1,12 +1,14 @@
 package modal;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import exceptions.VagaInvalidaException;
 
-public class ParqueEstacionamento {
+public class ParqueEstacionamento implements Serializable {
+    private static final long serialVersionUID = 1L;
     private ArrayList<Cliente> clientes;
     private HashMap<Veiculo, Cliente> veiculoClienteMap;
     private HashMap<Veiculo, Vaga> vagasOcupadas;
@@ -46,7 +48,6 @@ public class ParqueEstacionamento {
     public void estacionarVeiculo(Vaga vaga, Veiculo veiculo, LocalDateTime entrada) throws VagaInvalidaException {
         if (!vaga.isOcupada()) {
             vaga.ocupar();
-            // Adicione lógica adicional para registrar o horário de entrada, se necessário
             vagasOcupadas.put(veiculo, vaga);
             veiculoClienteMap.put(veiculo, veiculo.getProprietario());
         } else {
@@ -56,7 +57,6 @@ public class ParqueEstacionamento {
 
     public void liberarVaga(Vaga vaga, LocalDateTime saida) {
         vaga.liberar();
-        // Adicione lógica adicional para registrar o horário de saída, se necessário
         vagasOcupadas.remove(vaga);
     }
 
@@ -88,5 +88,18 @@ public class ParqueEstacionamento {
 
     public ArrayList<Vaga> listarVagas() {
         return new ArrayList<>(vagas);
+    }
+
+    // Métodos para salvar e carregar dados
+    public void salvarDados(String caminhoArquivo) throws IOException {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminhoArquivo))) {
+            oos.writeObject(this);
+        }
+    }
+
+    public static ParqueEstacionamento carregarDados(String caminhoArquivo) throws IOException, ClassNotFoundException {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(caminhoArquivo))) {
+            return (ParqueEstacionamento) ois.readObject();
+        }
     }
 }

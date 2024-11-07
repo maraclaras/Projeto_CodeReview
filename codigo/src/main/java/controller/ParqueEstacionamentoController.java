@@ -1,22 +1,24 @@
 package controller;
 
-import java.time.LocalDateTime;
-import dto.ParqueEstacionamentoDto;
-import exceptions.VagaInvalidaException;
-import modal.Cliente;
 import modal.ParqueEstacionamento;
 import modal.Vaga;
+import modal.Cliente;
 import modal.Veiculo;
+import exceptions.VagaInvalidaException;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class ParqueEstacionamentoController {
     private ParqueEstacionamento parqueEstacionamento;
 
-    public ParqueEstacionamento getParqueEstacionamento() {
-        return this.parqueEstacionamento;
-    }
-
     public ParqueEstacionamentoController(int numFilas, int numVagasPorFila) {
         this.parqueEstacionamento = new ParqueEstacionamento(numFilas, numVagasPorFila);
+    }
+
+    public ParqueEstacionamento getParqueEstacionamento() {
+        return parqueEstacionamento;
     }
 
     public void registrarCliente(Cliente cliente) {
@@ -51,11 +53,15 @@ public class ParqueEstacionamentoController {
         return parqueEstacionamento.obterVagaPorVeiculo(veiculo);
     }
 
-    public Veiculo buscarVeiculoPorCliente(Cliente cliente) {
-        return parqueEstacionamento.buscarVeiculoPorCliente(cliente);
+    public ArrayList<Cliente> listarClientes() {
+        return parqueEstacionamento.listarClientes();
     }
 
-    public ParqueEstacionamentoDto listarEstacionamento() {
-        return new ParqueEstacionamentoDto(parqueEstacionamento.listarClientes(), parqueEstacionamento.listarVagas());
+    public void salvarDados(String caminhoArquivo) throws IOException {
+        parqueEstacionamento.salvarDados(caminhoArquivo);
+    }
+
+    public void carregarDados(String caminhoArquivo) throws IOException, ClassNotFoundException {
+        this.parqueEstacionamento = ParqueEstacionamento.carregarDados(caminhoArquivo);
     }
 }

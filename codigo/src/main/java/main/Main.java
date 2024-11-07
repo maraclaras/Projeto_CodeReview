@@ -8,6 +8,7 @@ import controller.ParqueEstacionamentoController;
 import view.ClienteView;
 import view.EstacionamentoView;
 
+
 public class Main {
     public static void main(String[] args) {
         Scanner leitor = new Scanner(System.in);
@@ -30,6 +31,7 @@ public class Main {
             System.out.println("(1) Área do Cliente");
             System.out.println("(2) Área do Estacionamento");
             System.out.println("(3) Sair");
+            System.out.println("(4) Sair");
             System.out.print("Escolha uma opção: ");
             opcao = leitor.nextInt();
             leitor.nextLine(); // Consumir quebra de linha
@@ -42,6 +44,8 @@ public class Main {
                     estacionamentoView.exibirMenu();
                     break;
                 case 3:
+                    break;
+                case 4:
                     System.out.println("Saindo...");
                     break;
                 default:
