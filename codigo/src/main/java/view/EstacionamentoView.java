@@ -1,15 +1,14 @@
 package view;
 
-import controller.ParqueEstacionamentoController;
-import modal.Cliente;
-import modal.Vaga;
-import modal.Veiculo;
-import exceptions.VagaInvalidaException;
-
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+
+import controller.ParqueEstacionamentoController;
+import exceptions.VagaInvalidaException;
+import modal.Cliente;
+import modal.Vaga;
+import modal.Veiculo;
 
 public class EstacionamentoView {
     private Scanner scanner;
@@ -31,7 +30,7 @@ public class EstacionamentoView {
             System.out.println("5. Listar clientes e vagas");
             System.out.println("6. Salvar dados");
             System.out.println("7. Carregar dados");
-            System.out.println("8. Sair");
+            System.out.println("8. Voltar");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // Consumir quebra de linha
@@ -59,7 +58,7 @@ public class EstacionamentoView {
                     carregarDados();
                     break;
                 case 8:
-                    System.out.println("Saindo...");
+                    System.out.println("Voltando...");
                     break;
                 default:
                     System.out.println("Opção inválida.");

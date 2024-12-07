@@ -32,7 +32,7 @@ public class ClienteView {
             System.out.println("5. Listar veículos do cliente");
             System.out.println("6. Listar todos os clientes");
             System.out.println("7. Calcular cobrança de cliente");
-            System.out.println("8. Sair");
+            System.out.println("8. Voltar");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // Consumir quebra de linha
@@ -60,7 +60,7 @@ public class ClienteView {
                     calcularCobrancaCliente();
                     break;
                 case 8:
-                    System.out.println("Saindo...");
+                    System.out.println("Voltando...");
                     break;
                 default:
                     System.out.println("Opção inválida.");
