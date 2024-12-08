@@ -14,7 +14,8 @@ public class ParqueEstacionamentoController {
     private ParqueEstacionamento parqueEstacionamento;
 
     public ParqueEstacionamentoController(int numFilas, int numVagasPorFila) {
-        this.parqueEstacionamento = new ParqueEstacionamento(numFilas, numVagasPorFila);
+        // Usando o método getInstancia() para obter a instância do ParqueEstacionamento
+        this.parqueEstacionamento = ParqueEstacionamento.getInstancia(numFilas, numVagasPorFila);
     }
 
     public ParqueEstacionamento getParqueEstacionamento() {
