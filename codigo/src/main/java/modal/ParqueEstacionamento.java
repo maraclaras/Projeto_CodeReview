@@ -9,13 +9,19 @@ import exceptions.VagaInvalidaException;
 
 public class ParqueEstacionamento implements Serializable {
     private static final long serialVersionUID = 1L;
-    private ArrayList<Cliente> clientes;
+    
+    // Tornar clientes estático para acesso global
+    public static ArrayList<Cliente> clientes = new ArrayList<>();  // Mudança para static
+
     private HashMap<Veiculo, Cliente> veiculoClienteMap;
     private HashMap<Veiculo, Vaga> vagasOcupadas;
     private ArrayList<Vaga> vagas;
 
-    public ParqueEstacionamento(int numFilas, int numVagasPorFila) {
-        clientes = new ArrayList<>();
+    // Instância estática única
+    private static ParqueEstacionamento instancia;
+
+    // Construtor privado para prevenir a criação de múltiplas instâncias
+    private ParqueEstacionamento(int numFilas, int numVagasPorFila) {
         vagas = new ArrayList<>();
         vagasOcupadas = new HashMap<>();
         veiculoClienteMap = new HashMap<>();
@@ -32,11 +38,19 @@ public class ParqueEstacionamento implements Serializable {
         }
     }
 
-    public void registrarCliente(Cliente cliente) {
-        clientes.add(cliente);
+    // Método para obter a instância única
+    public static ParqueEstacionamento getInstancia(int numFilas, int numVagasPorFila) {
+        if (instancia == null) {
+            instancia = new ParqueEstacionamento(numFilas, numVagasPorFila);
+        }
+        return instancia;
     }
 
-    public Cliente buscarClientePorCpf(String cpf) {
+    public static void registrarCliente(Cliente cliente) {
+        clientes.add(cliente);  // Adiciona o cliente à lista estática
+    }
+
+    public static Cliente buscarClientePorCpf(String cpf) {
         for (Cliente cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return cliente;
@@ -90,6 +104,10 @@ public class ParqueEstacionamento implements Serializable {
         return new ArrayList<>(vagas);
     }
 
+    public ArrayList<Vaga> getVagas() {
+        return vagas;
+    }
+    
     // Métodos para salvar e carregar dados
     public void salvarDados(String caminhoArquivo) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(caminhoArquivo))) {
