@@ -39,4 +39,13 @@ public class Cliente implements Serializable {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public Veiculo buscarVeiculoPorPlaca(String placa) {
+        for (Veiculo veiculo : listaVeiculos) {
+            if (veiculo.getPlaca().equals(placa)) {
+                return veiculo;  // Retorna o veículo caso a placa seja encontrada
+            }
+        }
+        return null;  // Retorna null caso o veículo não seja encontrado
+    }
 }

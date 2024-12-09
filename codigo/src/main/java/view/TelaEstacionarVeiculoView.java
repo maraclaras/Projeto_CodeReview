@@ -1,5 +1,15 @@
 package view;
 
+import java.time.LocalDateTime;
+
+import javax.swing.JOptionPane;
+
+import exceptions.VagaInvalidaException;
+import modal.Cliente;
+import modal.ParqueEstacionamento;
+import modal.Vaga;
+import modal.Veiculo;
+
 public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
 
     public TelaEstacionarVeiculoView() {
@@ -28,14 +38,29 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
         jLabel2.setText("Digite o CPF do Cliente:");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Digite a Placa do Veículo:");
 
         jLabel4.setText("Digite o Identificador da Vaga:");
 
         jButton2.setText("Salvar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,7 +115,72 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+
+ 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String cpf = jTextField1.getText();  // Pega o CPF informado no campo de texto
+        
+        // Busca o cliente pela lista de clientes
+        Cliente cliente = ParqueEstacionamento.clientes.stream()
+                            .filter(c -> c.getCpf().equals(cpf))
+                            .findFirst()
+                            .orElse(null);
+        
+        if (cliente != null) {
+            JOptionPane.showMessageDialog(this, "Cliente encontrado: " + cliente.getNome(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            // Aqui você pode preencher outros campos, como a placa do veículo e o identificador da vaga
+            jTextField2.requestFocus(); // Focar no campo de placa
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        String placa = jTextField2.getText();
+        String identificadorVaga = jTextField3.getText();
+    
+        // Encontre o cliente
+        Cliente cliente = ParqueEstacionamento.clientes.stream()
+                            .filter(c -> c.getCpf().equals(jTextField1.getText()))
+                            .findFirst()
+                            .orElse(null);
+    
+        if (cliente != null) {
+            // Crie uma instância de ParqueEstacionamento (presumindo que você tenha a instância criada)
+            ParqueEstacionamento parque = ParqueEstacionamento.getInstancia(5, 10);  // Obter a instância única
+
+            // Encontrar a vaga
+            Vaga vaga = parque.getVagas().stream()
+                              .filter(v -> v.getIdentificador().equals(identificadorVaga))
+                              .findFirst()
+                              .orElse(null);
+    
+            if (vaga != null && !vaga.isOcupada()) {
+                // Estaciona o veículo
+                Veiculo veiculo = new Veiculo(placa, cliente);  // Cria o veículo com a placa e o cliente
+                LocalDateTime entrada = LocalDateTime.now();
+                try {
+                    parque.estacionarVeiculo(vaga, veiculo, entrada);
+                    JOptionPane.showMessageDialog(this, "Veículo estacionado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (VagaInvalidaException e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao estacionar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Vaga inválida ou já ocupada!", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+        TelaEstacionamentoView telaCliente = new TelaEstacionamentoView();
+        telaCliente.setVisible(true);
+        this.setVisible(false);
+    }
 
     /**
      * @param args the command line arguments

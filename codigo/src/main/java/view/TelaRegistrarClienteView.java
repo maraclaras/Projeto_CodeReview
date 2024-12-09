@@ -2,6 +2,9 @@ package view;
 
 import javax.swing.JOptionPane;
 
+import modal.Cliente;
+import modal.ParqueEstacionamento;
+
 public class TelaRegistrarClienteView extends javax.swing.JFrame {
 
     public TelaRegistrarClienteView() {
@@ -110,22 +113,26 @@ public class TelaRegistrarClienteView extends javax.swing.JFrame {
         
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    public void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String nome = jTextField1.getText();
         String cpf = jTextField2.getText();
-    
         
         if (nome.isEmpty() || cpf.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
+            // Criar o cliente e adicionar ao parque
+            Cliente cliente = new Cliente(nome, cpf);
+            ParqueEstacionamento.clientes.add(cliente); // Adiciona o cliente à lista compartilhada
             JOptionPane.showMessageDialog(this, "Cliente " + nome + " registrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            
-            
+    
+            // Voltar para a tela de estacionamento
             TelaEstacionamentoView telaCliente = new TelaEstacionamentoView();
             telaCliente.setVisible(true);
             this.setVisible(false);
         }
     }
+    
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         jTextField1.setText("");

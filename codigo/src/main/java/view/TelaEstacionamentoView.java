@@ -29,16 +29,12 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,6 +44,11 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
         jLabel2.setText("Escolha uma Opção:");
 
         jButton1.setText("1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("2");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -57,14 +58,27 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
         });
 
         jButton3.setText("3");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("5");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("6");
 
-        jButton7.setText("7");
 
         jButton8.setText("8");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -83,9 +97,6 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
 
         jLabel7.setText("Listar Clientes e Vagas");
 
-        jLabel8.setText("Salvar Dados");
-
-        jLabel9.setText("Carregar Dados");
 
         jLabel10.setText("Voltar");
 
@@ -110,14 +121,6 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
                                 .addComponent(jButton5)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton7)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton8)
                                 .addGap(18, 18, 18)
@@ -166,14 +169,6 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jLabel9))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
                     .addComponent(jLabel10))
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -181,41 +176,30 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
-    private void bttn1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         TelaRegistrarClienteView telaRegistrarClienteView = new TelaRegistrarClienteView();
         telaRegistrarClienteView.setVisible(true);
         this.setVisible(false);
     }
 
-    private void bttn3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         TelaRegistarSaidaView telaRegistarSaidaView = new TelaRegistarSaidaView();
         telaRegistarSaidaView.setVisible(true);
         this.setVisible(false);
     }
 
-    private void bttn4ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
         TelaConsultaVagaView telaConsultaVagaView = new TelaConsultaVagaView();
         telaConsultaVagaView.setVisible(true);
         this.setVisible(false);
     }
 
-    private void bttn5ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
         TelaListarClientesVagasView telaListarClientesVagasView = new TelaListarClientesVagasView();
         telaListarClientesVagasView.setVisible(true);
         this.setVisible(false);
     }
 
-    private void bttn6ActionPerformed(java.awt.event.ActionEvent evt) {
-        TelaSalvarDadosView telaSalvarDadosView = new TelaSalvarDadosView();
-        telaSalvarDadosView.setVisible(true);
-        this.setVisible(false);
-    }
-
-    private void bttn7ActionPerformed(java.awt.event.ActionEvent evt) {
-        TelaCarregarDadosView telaCarregarDadosView = new TelaCarregarDadosView();
-        telaCarregarDadosView.setVisible(true);
-        this.setVisible(false);
-    }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         TelaEstacionarVeiculoView telaEstacionarVeiculoView = new TelaEstacionarVeiculoView();
         telaEstacionarVeiculoView.setVisible(true);
@@ -269,8 +253,6 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -280,7 +262,6 @@ public class TelaEstacionamentoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+
     // End of variables declaration
 }
