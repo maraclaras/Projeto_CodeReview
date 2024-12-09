@@ -1,15 +1,15 @@
 package controller;
 
 import modal.Vaga;
-import dto.VagaDto;
+import DAO.VagaDAO;
 import exceptions.VagaInvalidaException;
 
 public class VagaController {
     
-    public VagaDto criarVaga(String identificador, int maxVagasPermitidas) {
+    public VagaDAO criarVaga(String identificador, int maxVagasPermitidas) {
         try {
             Vaga vaga = new Vaga(identificador, maxVagasPermitidas);
-            return new VagaDto(vaga.getIdentificador(), vaga.isOcupada());
+            return new VagaDAO(vaga.getIdentificador(), vaga.isOcupada());
         } catch (VagaInvalidaException e) {
             System.out.println(e.getMessage());
             return null;
@@ -30,7 +30,7 @@ public class VagaController {
         System.out.println("A vaga " + vaga.getIdentificador() + " foi liberada.");
     }
 
-    public VagaDto obterVagaDto(Vaga vaga) {
-        return new VagaDto(vaga.getIdentificador(), vaga.isOcupada());
+    public VagaDAO obterVagaDAO(Vaga vaga) {
+        return new VagaDAO(vaga.getIdentificador(), vaga.isOcupada());
     }
 }
