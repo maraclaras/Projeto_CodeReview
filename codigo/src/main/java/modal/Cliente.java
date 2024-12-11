@@ -1,5 +1,6 @@
 package modal;
 
+import exceptions.VeiculoNaoEncontradoException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,11 @@ public class Cliente implements Serializable {
     public Veiculo buscarVeiculoPorPlaca(String placa) {
         for (Veiculo veiculo : listaVeiculos) {
             if (veiculo.getPlaca().equals(placa)) {
-                return veiculo;  // Retorna o veículo caso a placa seja encontrada
+                return veiculo;
             }
         }
-        return null;  // Retorna null caso o veículo não seja encontrado
+        // Lançando a exceção personalizada caso o veículo não seja encontrado
+        throw new VeiculoNaoEncontradoException("Veículo com placa " + placa + " não encontrado.");
     }
 }
+

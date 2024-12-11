@@ -2,6 +2,8 @@ package modal;
 
 import java.util.Scanner;
 
+import exceptions.HorarioInvalidoException;
+
 public class Cobranca {
     private static final float TAXA_POR_MINUTO = 4.0f;
     private static final float MAX_COBRANCA = 50.0f;
@@ -19,42 +21,50 @@ public class Cobranca {
     }
 
     // Método para calcular os minutos estacionados com base no horário de entrada e saída (em minutos)
-    public int calcularMinutos(int horaInicio, int horaFinal) {
+    public int calcularMinutos(int horaInicio, int horaFinal) throws HorarioInvalidoException {
         minutosTotal = horaFinal - horaInicio;
         if (minutosTotal < 0) {
-            System.out.println("Horário inválido. A hora de saída não pode ser anterior à hora de entrada.");
-            minutosTotal = 0;
+            throw new HorarioInvalidoException("A hora de saída não pode ser anterior à hora de entrada.");
         }
         return minutosTotal;
     }
 
     // Método para calcular a taxa para um cliente específico
     public void calcularTaxaCliente(ParqueEstacionamento estacionamento, Scanner leitor) {
-        System.out.println("Digite o CPF do cliente:");
-        String cpf = leitor.next();
-        Cliente cliente = estacionamento.buscarClientePorCpf(cpf);
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
-        }
+        try {
+            System.out.println("Digite o CPF do cliente:");
+            String cpf = leitor.next();
+            Cliente cliente = estacionamento.buscarClientePorCpf(cpf);
+            if (cliente == null) {
+                System.out.println("Cliente não encontrado.");
+                return;
+            }
 
-        Veiculo veiculo = estacionamento.buscarVeiculoPorCliente(cliente);
-        if (veiculo == null) {
-            System.out.println("Veículo não encontrado para o cliente.");
-            return;
-        }
+            Veiculo veiculo = estacionamento.buscarVeiculoPorCliente(cliente);
+            if (veiculo == null) {
+                System.out.println("Veículo não encontrado para o cliente.");
+                return;
+            }
 
-        System.out.println("Digite o tempo (em minutos) que o veículo ficou estacionado:");
-        int minutosEstacionados = leitor.nextInt();
-        Vaga vaga = estacionamento.obterVagaPorVeiculo(veiculo);
-        if (vaga == null) {
-            System.out.println("Vaga não encontrada para o veículo.");
-            return;
-        }
+            System.out.println("Digite o horário de entrada (em minutos):");
+            int horaInicio = leitor.nextInt();
 
-        double valor = calcularValor(minutosEstacionados, vaga);
-        System.out.println("Valor a ser cobrado para o cliente " + cpf + ": R$ " + valor);
-        cobrarCliente(cpf, valor);
+            System.out.println("Digite o horário de saída (em minutos):");
+            int horaFinal = leitor.nextInt();
+
+            int minutosEstacionados = calcularMinutos(horaInicio, horaFinal);
+            Vaga vaga = estacionamento.obterVagaPorVeiculo(veiculo);
+            if (vaga == null) {
+                System.out.println("Vaga não encontrada para o veículo.");
+                return;
+            }
+
+            double valor = calcularValor(minutosEstacionados, vaga);
+            System.out.println("Valor a ser cobrado para o cliente " + cpf + ": R$ " + valor);
+            cobrarCliente(cpf, valor);
+        } catch (HorarioInvalidoException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
     public double calcularTaxaVIP(int minutosEstacionado, VIP vagaVIP) {

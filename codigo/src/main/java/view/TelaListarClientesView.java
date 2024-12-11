@@ -4,11 +4,10 @@
  */
 package view;
 
-import javax.swing.DefaultListModel;
-import modal.Cliente;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultListModel;
+import modal.Cliente;
 /**
  *
  * @author isabe
@@ -108,12 +107,12 @@ public class TelaListarClientesView extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         this.setVisible(false); // Oculta a tela atual
         new TelaClienteView().setVisible(true);
-    }                                        
+    }
 
     /**
      * @param args the command line arguments
