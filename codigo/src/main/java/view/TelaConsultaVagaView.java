@@ -1,9 +1,9 @@
 package view;
 
-import modal.Veiculo; 
-import modal.Cliente;  
+import DAO.Cliente;
+import DAO.Vaga;
+import DAO.Veiculo;
 import modal.ParqueEstacionamento;  
-import modal.Vaga;  
 
 public class TelaConsultaVagaView extends javax.swing.JFrame {
 

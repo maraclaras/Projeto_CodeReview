@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import DAO.Cliente;
+import DAO.Vaga;
+import DAO.Veiculo;
 import controller.ParqueEstacionamentoController;
 import exceptions.VagaInvalidaException;
-import modal.Cliente;
-import modal.Vaga;
-import modal.Veiculo;
 
 public class EstacionamentoView {
     private Scanner scanner;

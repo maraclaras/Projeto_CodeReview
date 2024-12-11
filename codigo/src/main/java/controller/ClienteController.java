@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import modal.Cliente;
+import DAO.Cliente;
+import DAO.Veiculo;
 import modal.ParqueEstacionamento;
-import modal.Veiculo;
 
 public class ClienteController {
     private List<Cliente> clientes;

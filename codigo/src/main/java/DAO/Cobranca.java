@@ -1,6 +1,8 @@
-package modal;
+package DAO;
 
 import java.util.Scanner;
+
+import modal.ParqueEstacionamento;
 
 public class Cobranca {
     private static final float TAXA_POR_MINUTO = 4.0f;

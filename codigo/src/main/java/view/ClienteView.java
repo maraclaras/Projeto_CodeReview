@@ -1,12 +1,12 @@
 package view;
 import java.util.Scanner;
 
+import DAO.Cliente;
+import DAO.Cobranca;
+import DAO.Vaga;
+import DAO.Veiculo;
 import controller.ClienteController;
-import modal.Cliente;
-import modal.Cobranca;
 import modal.ParqueEstacionamento;
-import modal.Vaga;
-import modal.Veiculo;
 
 public class ClienteView {
     private Scanner scanner;

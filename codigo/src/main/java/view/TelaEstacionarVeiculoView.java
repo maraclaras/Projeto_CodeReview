@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+import DAO.Cliente;
+import DAO.Vaga;
+import DAO.Veiculo;
 import exceptions.VagaInvalidaException;
-import modal.Cliente;
 import modal.ParqueEstacionamento;
-import modal.Vaga;
-import modal.Veiculo;
 
 public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
 

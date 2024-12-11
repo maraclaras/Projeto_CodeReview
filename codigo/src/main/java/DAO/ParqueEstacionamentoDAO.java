@@ -1,8 +1,6 @@
 package DAO;
 
 import java.util.ArrayList;
-import modal.Cliente;
-import modal.Vaga;
 
 public class ParqueEstacionamentoDAO {
     private ArrayList<Cliente> clientes;

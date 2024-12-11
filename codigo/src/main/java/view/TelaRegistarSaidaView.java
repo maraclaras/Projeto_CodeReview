@@ -1,8 +1,10 @@
 package view;
 
 import modal.ParqueEstacionamento;
-import modal.Vaga;
+
 import javax.swing.JOptionPane;
+
+import DAO.Vaga;
 
 public class TelaRegistarSaidaView extends javax.swing.JFrame {
 

@@ -5,7 +5,8 @@
 package view;
 
 import javax.swing.DefaultListModel;
-import modal.Cliente;
+
+import DAO.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;
