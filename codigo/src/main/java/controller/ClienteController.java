@@ -1,8 +1,11 @@
 package controller;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import BancoDados.BancoDados;
 import DAO.Cliente;
 import DAO.Veiculo;
 import modal.ParqueEstacionamento;
@@ -51,7 +54,29 @@ public class ClienteController {
 
     // Adiciona um cliente
     public void adicionarCliente(Cliente cliente) {
-        clientes.add(cliente); // Adiciona um novo cliente à lista
+           String sql = "INSERT INTO Cliente (nome, cpf) VALUES (?, ?)";
+
+    try (
+         PreparedStatement stmt =  BancoDados.getConexao().prepareStatement(sql)) {
+
+        // Define os valores dos parâmetros
+        stmt.setString(1, cliente.getNome());
+        stmt.setString(2, cliente.getCpf());
+
+        // Executa a inserção
+        int rowsAffected = stmt.executeUpdate();
+        
+        if (rowsAffected > 0) {
+            System.out.println("Cliente adicionado com sucesso!");
+            clientes.add(cliente); // Adiciona o cliente à lista local
+        } else {
+            System.out.println("Falha ao adicionar o cliente. Nenhuma linha foi inserida.");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace(); // Exibe o erro no console
+        System.out.println("Erro ao adicionar cliente: " + e.getMessage());
+    }
     }
 
     // Lista todos os clientes
