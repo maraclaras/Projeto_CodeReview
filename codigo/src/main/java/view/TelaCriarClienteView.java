@@ -1,5 +1,7 @@
 package view;
 import javax.swing.JOptionPane;
+import DAO.Cliente;
+import view.TelaListarClientesView;
 
 public class TelaCriarClienteView extends javax.swing.JFrame {
 
@@ -111,21 +113,27 @@ public class TelaCriarClienteView extends javax.swing.JFrame {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-    String nome = jTextField1.getText();
-    String cpf = jTextField2.getText();
-
+        String nome = jTextField1.getText();
+        String cpf = jTextField2.getText();
     
-    if (nome.isEmpty() || cpf.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, "Cliente " + nome + " salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        
-        
-        TelaClienteView telaCliente = new TelaClienteView();
-        telaCliente.setVisible(true);
-        this.setVisible(false);
+        if (nome.isEmpty() || cpf.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Cria um novo cliente
+            Cliente cliente = new Cliente(nome, cpf);
+    
+            // Adiciona à lista estática de clientes
+            Cliente.clientes.add(cliente);
+    
+            JOptionPane.showMessageDialog(this, "Cliente " + nome + " salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    
+            // Volta para a tela principal
+            TelaClienteView telaCliente = new TelaClienteView();
+            telaCliente.setVisible(true);
+            this.setVisible(false);
+        }
     }
-    }
+    
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
     jTextField1.setText("");
