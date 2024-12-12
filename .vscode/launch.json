@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TelaListarClientesView",
+            "request": "launch",
+            "mainClass": "view.TelaListarClientesView",
+            "projectName": "turmamanha-g3-puc-lovers_806093b"
+        },
+        {
+            "type": "java",
+            "name": "MainFrame",
+            "request": "launch",
+            "mainClass": "view.MainFrame",
+            "projectName": "turmamanha-g3-puc-lovers_806093b"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "main.Main",
+            "projectName": "turmamanha-g3-puc-lovers_806093b"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.JOptionPane;
 
-import modal.Cliente;
+import DAO.Cliente;
 import modal.ParqueEstacionamento;
 
 public class TelaRegistrarClienteView extends javax.swing.JFrame {

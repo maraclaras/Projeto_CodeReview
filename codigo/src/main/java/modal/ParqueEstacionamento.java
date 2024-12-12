@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import DAO.Cliente;
+import DAO.Vaga;
+import DAO.Veiculo;
 import exceptions.VagaInvalidaException;
 
 public class ParqueEstacionamento implements Serializable {

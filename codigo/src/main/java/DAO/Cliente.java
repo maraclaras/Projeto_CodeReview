@@ -1,4 +1,4 @@
-package modal;
+package DAO;
 
 import exceptions.VeiculoNaoEncontradoException;
 import java.io.Serializable;
@@ -50,5 +50,9 @@ public class Cliente implements Serializable {
         // Lançando a exceção personalizada caso o veículo não seja encontrado
         throw new VeiculoNaoEncontradoException("Veículo com placa " + placa + " não encontrado.");
     }
+<<<<<<< HEAD:codigo/src/main/java/modal/Cliente.java
 }
 
+=======
+}
+>>>>>>> ba7344d988a0f8b94ec8d5966a8aa1b5621ba9d4:codigo/src/main/java/DAO/Cliente.java

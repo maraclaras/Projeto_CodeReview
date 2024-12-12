@@ -1,14 +1,15 @@
 package controller;
 
 import modal.ParqueEstacionamento;
-import modal.Vaga;
-import modal.Cliente;
-import modal.Veiculo;
 import exceptions.VagaInvalidaException;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import DAO.Cliente;
+import DAO.Vaga;
+import DAO.Veiculo;
 
 public class ParqueEstacionamentoController {
     private ParqueEstacionamento parqueEstacionamento;

@@ -7,6 +7,7 @@ import controller.CobrancaController;
 import controller.ParqueEstacionamentoController;
 import view.ClienteView;
 import view.EstacionamentoView;
+import BancoDados.BancoDados;
 
 
 public class Main {
@@ -16,6 +17,8 @@ public class Main {
         ParqueEstacionamentoController estacionamentoController = new ParqueEstacionamentoController(1, 10);
         ClienteController clienteController = new ClienteController(estacionamentoController.getParqueEstacionamento(), leitor);
         CobrancaController cobrancaController = new CobrancaController(estacionamentoController.getParqueEstacionamento(), leitor);
+        BancoDados bancoDados = BancoDados.getInstancia();
+
 
         // Inicializa as views
         ClienteView clienteView = new ClienteView(estacionamentoController.getParqueEstacionamento(), clienteController);

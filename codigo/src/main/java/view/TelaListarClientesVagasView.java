@@ -1,10 +1,12 @@
 package view;
 
-import modal.Cliente;
-import modal.Vaga;
-import modal.Veiculo;
 import modal.ParqueEstacionamento;
 import javax.swing.*;
+
+import DAO.Cliente;
+import DAO.Vaga;
+import DAO.Veiculo;
+
 import java.util.ArrayList;
 import java.util.List;
 

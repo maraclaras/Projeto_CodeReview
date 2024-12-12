@@ -3,6 +3,15 @@
         "codigo\\src\\main\\java"
     ],
     "java.project.referencedLibraries": [
+        "c:\\Users\\luisa\\Downloads\\mariadb-java-client-3.5.1.jar",
         "c:\\Users\\luisa\\Downloads\\postgresql-42.7.4.jar"
+    ],
+    "java.format.settings.url": ".vscode/java-formatter.xml",
+    "java.completion.filteredTypes": [
+        "com.sun.*",
+        "sun.*",
+        "jdk.*",
+        "org.graalvm.*",
+        "io.micrometer.shaded.*"
     ]
 }

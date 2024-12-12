@@ -1,4 +1,4 @@
-package modal;
+package DAO;
 
 import exceptions.VagaInvalidaException;
 

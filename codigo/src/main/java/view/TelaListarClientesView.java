@@ -4,6 +4,13 @@
  */
 package view;
 
+<<<<<<< HEAD
+=======
+import javax.swing.DefaultListModel;
+
+import DAO.Cliente;
+
+>>>>>>> ba7344d988a0f8b94ec8d5966a8aa1b5621ba9d4
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;

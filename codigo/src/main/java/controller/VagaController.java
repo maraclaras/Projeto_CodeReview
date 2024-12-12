@@ -1,6 +1,6 @@
 package controller;
 
-import modal.Vaga;
+import DAO.Vaga;
 import DAO.VagaDAO;
 import exceptions.VagaInvalidaException;
 
