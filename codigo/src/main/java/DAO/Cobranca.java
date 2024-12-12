@@ -2,11 +2,7 @@ package DAO;
 
 import java.util.Scanner;
 
-<<<<<<< HEAD:codigo/src/main/java/modal/Cobranca.java
-import exceptions.HorarioInvalidoException;
-=======
 import modal.ParqueEstacionamento;
->>>>>>> ba7344d988a0f8b94ec8d5966a8aa1b5621ba9d4:codigo/src/main/java/DAO/Cobranca.java
 
 public class Cobranca {
     private static final float TAXA_POR_MINUTO = 4.0f;

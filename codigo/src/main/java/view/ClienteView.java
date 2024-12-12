@@ -1,6 +1,7 @@
 package view;
 import java.util.Scanner;
 
+import BancoDados.BancoDados;
 import DAO.Cliente;
 import DAO.Cobranca;
 import DAO.Vaga;
@@ -114,7 +115,7 @@ public class ClienteView {
             System.out.print("Digite a placa do veículo: ");
             String placa = scanner.nextLine();
             Veiculo veiculo = new Veiculo(placa);
-            cliente.adicionarVeiculo(veiculo);
+            clienteController.adicionarVeiculo(cpf, veiculo);
             System.out.println("Veículo adicionado com sucesso.");
         } else {
             System.out.println("Cliente não encontrado.");

@@ -7,34 +7,30 @@ import controller.CobrancaController;
 import controller.ParqueEstacionamentoController;
 import view.ClienteView;
 import view.EstacionamentoView;
-import BancoDados.BancoDados;
-
 
 public class Main {
     public static void main(String[] args) {
         Scanner leitor = new Scanner(System.in);
+
         // Inicializa o Parque de Estacionamento e Controladores
         ParqueEstacionamentoController estacionamentoController = new ParqueEstacionamentoController(1, 10);
         ClienteController clienteController = new ClienteController(estacionamentoController.getParqueEstacionamento(), leitor);
         CobrancaController cobrancaController = new CobrancaController(estacionamentoController.getParqueEstacionamento(), leitor);
-        BancoDados bancoDados = BancoDados.getInstancia();
-
 
         // Inicializa as views
         ClienteView clienteView = new ClienteView(estacionamentoController.getParqueEstacionamento(), clienteController);
-        EstacionamentoView estacionamentoView = new EstacionamentoView(estacionamentoController);
+        EstacionamentoView estacionamentoView = new EstacionamentoView(estacionamentoController, clienteController); // Passando o ClienteController
 
-        int opcao = 0; // Inicializa a variável opcao
+        int opcao;
         do {
             System.out.println("=======================================");
-            System.out.println("            SEJA BEM VINDO AO          ");
+            System.out.println("            SEJA BEM-VINDO AO          ");
             System.out.println("          PARQUE ESTACIONAMENTO        ");
             System.out.println("=======================================");
             System.out.println("          Digite uma opção             ");
             System.out.println("(1) Área do Cliente");
             System.out.println("(2) Área do Estacionamento");
             System.out.println("(3) Sair");
-            System.out.println("(4) Sair");
             System.out.print("Escolha uma opção: ");
             opcao = leitor.nextInt();
             leitor.nextLine(); // Consumir quebra de linha
@@ -47,13 +43,13 @@ public class Main {
                     estacionamentoView.exibirMenu();
                     break;
                 case 3:
-                    break;
-                case 4:
                     System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Opção inválida. Tente novamente.");
             }
-        } while (opcao != 4);
+        } while (opcao != 3);
+
+        leitor.close(); // Fecha o scanner ao finalizar o programa
     }
 }

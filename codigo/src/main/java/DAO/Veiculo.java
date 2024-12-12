@@ -1,6 +1,7 @@
 package DAO;
 
 import java.io.Serializable;
+import BancoDados.BancoDados;
 
 public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -8,14 +8,18 @@ import DAO.Cliente;
 import DAO.Vaga;
 import DAO.Veiculo;
 import controller.ParqueEstacionamentoController;
+import controller.ClienteController;
 import exceptions.VagaInvalidaException;
 
 public class EstacionamentoView {
     private Scanner scanner;
     private ParqueEstacionamentoController estacionamentoController;
+    private ClienteController clienteController;
 
-    public EstacionamentoView(ParqueEstacionamentoController estacionamentoController) {
+    // Construtor atualizado para receber ClienteController
+    public EstacionamentoView(ParqueEstacionamentoController estacionamentoController, ClienteController clienteController) {
         this.estacionamentoController = estacionamentoController;
+        this.clienteController = clienteController; // Inicialização correta
         this.scanner = new Scanner(System.in);
     }
 
@@ -23,41 +27,37 @@ public class EstacionamentoView {
         int opcao;
         do {
             System.out.println("---- Menu de Estacionamento ----");
-            System.out.println("1. Registrar cliente");
-            System.out.println("2. Estacionar veículo");
-            System.out.println("3. Registrar saída de veículo");
-            System.out.println("4. Consultar vaga do veículo");
-            System.out.println("5. Listar clientes e vagas");
-            System.out.println("6. Salvar dados");
-            System.out.println("7. Carregar dados");
-            System.out.println("8. Voltar");
+            System.out.println("1. Estacionar veículo");
+            System.out.println("2. Registrar saída de veículo");
+            System.out.println("3. Consultar vaga do veículo");
+            System.out.println("4. Listar clientes e vagas");
+            System.out.println("5. Salvar dados");
+            System.out.println("6. Carregar dados");
+            System.out.println("7. Voltar");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine(); // Consumir quebra de linha
 
             switch (opcao) {
                 case 1:
-                    registrarCliente();
-                    break;
-                case 2:
                     estacionarVeiculo();
                     break;
-                case 3:
+                case 2:
                     registrarSaidaVeiculo();
                     break;
-                case 4:
+                case 3:
                     consultarVagaVeiculo();
                     break;
-                case 5:
+                case 4:
                     listarClientesEVagas();
                     break;
-                case 6:
+                case 5:
                     salvarDados();
                     break;
-                case 7:
+                case 6:
                     carregarDados();
                     break;
-                case 8:
+                case 7:
                     System.out.println("Voltando...");
                     break;
                 default:
@@ -66,20 +66,10 @@ public class EstacionamentoView {
         } while (opcao != 8);
     }
 
-    private void registrarCliente() {
-        System.out.print("Digite o nome do cliente: ");
-        String nome = scanner.nextLine();
-        System.out.print("Digite o CPF do cliente: ");
-        String cpf = scanner.nextLine();
-        Cliente cliente = new Cliente(nome, cpf);
-        estacionamentoController.registrarCliente(cliente);
-        System.out.println("Cliente registrado com sucesso.");
-    }
-
     private void estacionarVeiculo() {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
-        Cliente cliente = estacionamentoController.buscarClientePorCpf(cpf);
+        Cliente cliente = clienteController.buscarCliente(cpf);
         if (cliente != null) {
             System.out.print("Digite a placa do veículo: ");
             String placa = scanner.nextLine();

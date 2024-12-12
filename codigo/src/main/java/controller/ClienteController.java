@@ -1,5 +1,8 @@
 package controller;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,86 +14,159 @@ import DAO.Veiculo;
 import modal.ParqueEstacionamento;
 
 public class ClienteController {
-    private List<Cliente> clientes;
+
     private ParqueEstacionamento estacionamento;
     private Scanner leitor;
 
     // Construtor que recebe ParqueEstacionamento e Scanner
     public ClienteController(ParqueEstacionamento estacionamento, Scanner leitor) {
-        this.clientes = new ArrayList<>();
-        this.estacionamento = estacionamento; // Armazena a referência do estacionamento
-        this.leitor = leitor; // Armazena a referência do scanner
+        this.estacionamento = estacionamento;
+        this.leitor = leitor;
     }
 
-    // Busca um cliente pelo CPF
-    public Cliente buscarCliente(String cpf) {
-        for (Cliente cliente : clientes) {
-            if (cliente.getCpf().equals(cpf)) {
-                return cliente; // Retorna o cliente encontrado
+    // Adiciona um cliente no banco de dados
+    public void adicionarCliente(Cliente cliente) {
+        String sql = "INSERT INTO Cliente (nome, cpf) VALUES (?, ?)";
+    
+        try (Connection conexao = BancoDados.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+    
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getCpf());
+    
+            int rowsAffected = stmt.executeUpdate();
+    
+            if (rowsAffected > 0) {
+                System.out.println("Cliente adicionado com sucesso!");
+            } else {
+                System.out.println("Falha ao adicionar o cliente.");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao adicionar cliente: " + e.getMessage());
         }
+    }
+
+    // Busca um cliente no banco de dados pelo CPF
+    public Cliente buscarCliente(String cpf) {
+        String sql = "SELECT * FROM Cliente WHERE cpf = ?";
+
+        try (Connection conexao = BancoDados.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, cpf);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                String nome = rs.getString("nome");
+                return new Cliente(nome, cpf);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao buscar cliente: " + e.getMessage());
+        }
+
         return null; // Retorna null se o cliente não for encontrado
     }
 
-    // Altera um cliente existente
+    // Altera um cliente existente no banco de dados
     public boolean alterarCliente(String cpf, String novoNome) {
-        Cliente cliente = buscarCliente(cpf);
-        if (cliente != null) {
-            cliente.setNome(novoNome); // Altera o nome do cliente
-            return true; // Retorna true se a alteração for bem-sucedida
+        String sql = "UPDATE Cliente SET nome = ? WHERE cpf = ?";
+
+        try (Connection conexao = BancoDados.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, novoNome);
+            stmt.setString(2, cpf);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Cliente atualizado com sucesso!");
+                return true;
+            } else {
+                System.out.println("Cliente não encontrado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao alterar cliente: " + e.getMessage());
         }
-        return false; // Retorna false se o cliente não for encontrado
+
+        return false;
     }
 
-    // Remove um cliente e retorna se foi bem-sucedido
+    // Remove um cliente do banco de dados pelo CPF
     public boolean removerCliente(String cpf) {
-        Cliente cliente = buscarCliente(cpf);
-        if (cliente != null) {
-            clientes.remove(cliente); // Remove o cliente da lista
-            return true; // Retorna true se a remoção for bem-sucedida
-        }
-        return false; // Retorna false se o cliente não for encontrado
-    }
+        String sql = "DELETE FROM Cliente WHERE cpf = ?";
 
-    // Adiciona um cliente
-    public void adicionarCliente(Cliente cliente) {
-           String sql = "INSERT INTO Cliente (nome, cpf) VALUES (?, ?)";
+        try (Connection conexao = BancoDados.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-    try (
-         PreparedStatement stmt =  BancoDados.getConexao().prepareStatement(sql)) {
+            stmt.setString(1, cpf);
 
-        // Define os valores dos parâmetros
-        stmt.setString(1, cliente.getNome());
-        stmt.setString(2, cliente.getCpf());
+            int rowsAffected = stmt.executeUpdate();
 
-        // Executa a inserção
-        int rowsAffected = stmt.executeUpdate();
-        
-        if (rowsAffected > 0) {
-            System.out.println("Cliente adicionado com sucesso!");
-            clientes.add(cliente); // Adiciona o cliente à lista local
-        } else {
-            System.out.println("Falha ao adicionar o cliente. Nenhuma linha foi inserida.");
+            if (rowsAffected > 0) {
+                System.out.println("Cliente removido com sucesso!");
+                return true;
+            } else {
+                System.out.println("Cliente não encontrado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao remover cliente: " + e.getMessage());
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace(); // Exibe o erro no console
-        System.out.println("Erro ao adicionar cliente: " + e.getMessage());
-    }
+        return false;
     }
 
-    // Lista todos os clientes
+    // Lista todos os clientes no banco de dados
     public List<Cliente> listarClientes() {
-        return clientes; // Retorna a lista de clientes
+        List<Cliente> clientes = new ArrayList<>();
+        String sql = "SELECT * FROM Cliente";
+
+        try (Connection conexao = BancoDados.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String nome = rs.getString("nome");
+                String cpf = rs.getString("cpf");
+                clientes.add(new Cliente(nome, cpf));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao listar clientes: " + e.getMessage());
+        }
+
+        return clientes;
     }
 
-    // Adiciona um veículo ao cliente
+    // Adiciona um veículo ao cliente no banco de dados
     public boolean adicionarVeiculo(String cpf, Veiculo veiculo) {
-        Cliente cliente = buscarCliente(cpf); // Busca o cliente pelo CPF
-        if (cliente != null) {
-            cliente.adicionarVeiculo(veiculo); // Adiciona o veículo ao cliente
-            return true; // Retorna true se a adição for bem-sucedida
+        String sql = "INSERT INTO Veiculo (placa, modelo, cpf_cliente) VALUES (?, ?, ?)";
+
+        try (Connection conexao = BancoDados.getConexao();
+             PreparedStatement stmt = conexao.prepareStatement(sql)) {
+
+            stmt.setString(1, veiculo.getPlaca());
+            stmt.setString(2, veiculo.getModelo());
+            stmt.setString(3, cpf);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Veículo adicionado com sucesso!");
+                return true;
+            } else {
+                System.out.println("Falha ao adicionar o veículo.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Erro ao adicionar veículo: " + e.getMessage());
         }
-        return false; // Retorna false se o cliente não for encontrado
+
+        return false;
     }
 }

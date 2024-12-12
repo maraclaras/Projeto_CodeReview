@@ -7,76 +7,38 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BancoDados {
+    // Atributos para configuração do banco
+    private static final String BANCO = "estacionamento";
+    private static final String USUARIO = "root";
+    private static final String SENHA = "root";
+    private static final String URL = "jdbc:mariadb://localhost:3306/" + BANCO;
 
-    //atributo que indica o banco que será utilizado:
-    private static String banco = "estacionamento";
-    
-    //atributo para setar o usuário do banco:
-    private static String usuario = "root";
-    
-    //atributo para setar a senha do usuário definido pelo atributo anterior:
-    private static String senha = "root";
-    
-    //atributo que especifica o endereço do servidor do banco.
-    //se for um servidor remoto, o localhost deve ser substituído pelo
-    //endereço IP do servidor do banco
-    private static String url = "jdbc:mariadb://localhost:3306/estacionamento";
-    
-    //atributo que garante uma única conexão com o banco
-    //padrão de projeto Singleton:
-    private static BancoDados instancia = null;
-    
-    //atributo que realiza a conexão com o banco:
-    private static Connection conexao = null;
-    private BancoDados()
-    {
-        
-    }
-    public static BancoDados getInstancia(){
-        
-        if(instancia == null)
-        {
-            //se não houver uma instância ativa, bora criar!
-            instancia = new BancoDados();
-            //aproveitar e conectar logo ao banco!
-            conectar();
-        }
-        //se já houver uma instância ativa, bora enviar ela!
-        return instancia;
-    }
-    
-    //método para realizar a conexão
-    private static void conectar()
-    {
-        //try significa "tenta".. Tenta conectar ao banco...
+    // Construtor privado para impedir instâncias externas
+    private BancoDados() {}
+
+    // Método para criar e retornar uma nova conexão
+    public static Connection getConexao() {
         try {
-            conexao  = DriverManager.getConnection(url, usuario, senha);
-            System.out.println("Conexão OK!");
-        } 
-        //se não conseguir, catch.. ou seja, "pega" esse erro e exibe pra alguem!
-        catch (SQLException ex) {
-            Logger.getLogger(BancoDados.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //método público para "pegar" a conexão ativa!
-    //através deste método é que conseguiremos incluir, consultar ou alterar
-    //dados em nosso banco de dados!
-    public static Connection getConexao()
-    {
-        return conexao;
-    }
-    
-    
-    //método público para desconectar o SGBD após o uso!
-    public void desconectar() {
-        
-        try {
-            conexao.close();
-            System.out.println("Conexão Encerrada!");
+            // Retorna uma nova conexão para cada chamada
+            return DriverManager.getConnection(URL, USUARIO, SENHA);
         } catch (SQLException ex) {
-            Logger.getLogger(BancoDados.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BancoDados.class.getName()).log(Level.SEVERE, "Erro ao conectar ao banco de dados!", ex);
+            throw new RuntimeException("Erro ao conectar ao banco de dados: " + ex.getMessage());
         }
     }
+
+    // Método para encerrar uma conexão específica
+    public static void desconectar(Connection conexao) {
+        if (conexao != null) {
+            try {
+                conexao.close();
+                System.out.println("Conexão encerrada com sucesso!");
+            } catch (SQLException ex) {
+                Logger.getLogger(BancoDados.class.getName()).log(Level.SEVERE, "Erro ao fechar a conexão!", ex);
+            }
+        }
+    }
+
     
 }
+    

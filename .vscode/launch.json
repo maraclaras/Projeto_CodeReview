@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TelaClienteView",
+            "request": "launch",
+            "mainClass": "view.TelaClienteView",
+            "projectName": "turmamanha-g3-puc-lovers_806093b"
+        },
+        {
+            "type": "java",
             "name": "TelaListarClientesView",
             "request": "launch",
             "mainClass": "view.TelaListarClientesView",
