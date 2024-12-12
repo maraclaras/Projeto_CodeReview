@@ -1,18 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
-/**
- *
- * @author isabe
- */
+import javax.swing.*;
+
+import DAO.Cliente;
+import DAO.Veiculo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class TelaListarVeiculosView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaListarVeiculosView
-     */
     public TelaListarVeiculosView() {
         initComponents();
     }
@@ -113,7 +111,7 @@ public class TelaListarVeiculosView extends javax.swing.JFrame {
         jLabel4.setText("Nome do Cliente");
 
         jList3.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "", "", "", "", "" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -174,12 +172,40 @@ public class TelaListarVeiculosView extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+      
+    }  
+    
+    private void atualizarListaVeiculos(List<Veiculo> veiculos) {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+    
+        // Adicionar veículos ao modelo da lista
+        for (Veiculo veiculo : veiculos) {
+            listModel.addElement("Placa: " + veiculo.getPlaca() );
+        }
+    
+        // Atualizar o componente JList
+        jList3.setModel(listModel);
+    }
+    
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String cpf = jTextField1.getText();
+        Cliente cliente = Cliente.buscarClientePorCpf(cpf);
+        
+        if (cliente != null) {
+            jTextField2.setText(cliente.getNome()); // Exibe o nome do cliente
+            
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (Veiculo veiculo : cliente.listarVeiculos()) {
+                model.addElement("Placa: " + veiculo.getPlaca() );
+            }
+            jList3.setModel(model); // Atualiza a lista com os veículos
+        } else {
+            JOptionPane.showMessageDialog(this, "Cliente não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+                                     
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
      this.setVisible(false); // Oculta a tela atual
