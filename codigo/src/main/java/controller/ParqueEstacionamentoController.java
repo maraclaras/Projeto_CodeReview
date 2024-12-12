@@ -34,7 +34,8 @@ public class ParqueEstacionamentoController {
     public Vaga liberarVaga(String identificador, LocalDateTime saida) throws VagaInvalidaException {
         Vaga vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
         if (vaga != null && vaga.isOcupada()) {
-            parqueEstacionamento.liberarVaga(vaga, saida);
+            vaga.liberar();
+            parqueEstacionamento.liberarVaga(vaga, saida);  
             return vaga;
         } else {
             throw new VagaInvalidaException("A vaga já está livre ou não foi encontrada.");
@@ -45,7 +46,8 @@ public class ParqueEstacionamentoController {
         Vaga vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
         if (vaga != null && !vaga.isOcupada()) {
             parqueEstacionamento.estacionarVeiculo(vaga, veiculo, entrada);
-            System.out.println("Vaga " + identificador + " ocupada.");
+
+           // System.out.println("Vaga " + identificador + " ocupada.");
         } else {
             throw new VagaInvalidaException("A vaga já está ocupada ou não foi encontrada.");
         }

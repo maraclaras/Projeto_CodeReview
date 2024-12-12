@@ -126,7 +126,8 @@ public class EstacionamentoView {
     }
 
     private void salvarDados() {
-        String caminhoArquivo = "turmamanha-g3-puc-lovers-master/codigo/src/main/java/data";
+       // C:\Users\luisa\OneDrive\Área de Trabalho\facul ou trabalho\puc\danilo\turmamanha-g3-puc-lovers\codigo\src\main\java\data
+        String caminhoArquivo = "./data";
         try {
             estacionamentoController.salvarDados(caminhoArquivo);
             System.out.println("Dados salvos com sucesso.");
@@ -136,7 +137,7 @@ public class EstacionamentoView {
     }
 
     private void carregarDados() {
-        String caminhoArquivo = "turmamanha-g3-puc-lovers-master/codigo/src/main/java/data";
+        String caminhoArquivo = "./data";
         try {
             estacionamentoController.carregarDados(caminhoArquivo);
             System.out.println("Dados carregados com sucesso.");
