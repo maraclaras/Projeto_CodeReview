@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 
 import DAO.ClienteDAO;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DAO.Veiculo;
 import exceptions.VagaInvalidaException;
 import modal.ParqueEstacionamento;
@@ -151,7 +151,7 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
             ParqueEstacionamento parque = ParqueEstacionamento.getInstancia(5, 10);  // Obter a instância única
 
             // Encontrar a vaga
-            Vaga vaga = parque.getVagas().stream()
+            VagaDAO vaga = parque.getVagas().stream()
                               .filter(v -> v.getIdentificador().equals(identificadorVaga))
                               .findFirst()
                               .orElse(null);

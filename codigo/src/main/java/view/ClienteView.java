@@ -4,7 +4,7 @@ import java.util.Scanner;
 import BancoDados.BancoDados;
 import DAO.ClienteDAO;
 import DAO.Cobranca;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DAO.Veiculo;
 import controller.ClienteController;
 import modal.ParqueEstacionamento;
@@ -154,7 +154,7 @@ public class ClienteView {
         if (cliente != null) {
             Veiculo veiculo = parqueEstacionamento.buscarVeiculoPorCliente(cliente);
             if (veiculo != null) {
-                Vaga vaga = parqueEstacionamento.obterVagaPorVeiculo(veiculo);
+                VagaDAO vaga = parqueEstacionamento.obterVagaPorVeiculo(veiculo);
                 if (vaga != null) {
                     System.out.print("Digite o tempo (em minutos) que o veículo ficou estacionado: ");
                     int minutos = scanner.nextInt();

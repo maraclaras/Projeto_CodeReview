@@ -4,7 +4,7 @@ import modal.ParqueEstacionamento;
 
 import javax.swing.JOptionPane;
 
-import DAO.Vaga;
+import DAO.VagaDAO;
 
 public class TelaRegistarSaidaView extends javax.swing.JFrame {
 
@@ -88,7 +88,7 @@ public class TelaRegistarSaidaView extends javax.swing.JFrame {
 
         // Acessando a instância do ParqueEstacionamento
         ParqueEstacionamento parqueEstacionamento = ParqueEstacionamento.getInstancia(3, 5); // Ajuste os parâmetros conforme necessário
-        Vaga vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
+        VagaDAO vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
 
         if (vaga == null) {
             JOptionPane.showMessageDialog(this, "Vaga não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);

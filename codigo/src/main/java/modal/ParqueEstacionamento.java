@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import DAO.ClienteDAO;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DTO.VeiculoDTO;
 import exceptions.VagaInvalidaException;
 
@@ -17,8 +17,8 @@ public class ParqueEstacionamento implements Serializable {
     public static ArrayList<ClienteDAO> clientes = new ArrayList<>();  // Mudança para static
 
     private HashMap<Veiculo, ClienteDAO> veiculoClienteMap;
-    private HashMap<Veiculo, Vaga> vagasOcupadas;
-    private ArrayList<Vaga> vagas;
+    private HashMap<Veiculo, VagaDAO> vagasOcupadas;
+    private ArrayList<VagaDAO> vagas;
 
     // Instância estática única
     private static ParqueEstacionamento instancia;
@@ -33,7 +33,7 @@ public class ParqueEstacionamento implements Serializable {
             for (int j = 0; j < numVagasPorFila; j++) {
                 String identificador = String.format("%c%02d", 'A' + i, j + 1);
                 try {
-                    vagas.add(new Vaga(identificador, numFilas * numVagasPorFila));
+                    vagas.add(new VagaDAO(identificador, numFilas * numVagasPorFila));
                 } catch (VagaInvalidaException e) {
                     System.out.println("Erro ao criar a vaga: " + e.getMessage());
                 }
@@ -62,7 +62,7 @@ public class ParqueEstacionamento implements Serializable {
         return null;
     }
 
-    public void estacionarVeiculo(Vaga vaga, Veiculo veiculo, LocalDateTime entrada) throws VagaInvalidaException {
+    public void estacionarVeiculo(VagaDAO vaga, Veiculo veiculo, LocalDateTime entrada) throws VagaInvalidaException {
         if (!vaga.isOcupada()) {
             vaga.ocupar();
             vagasOcupadas.put(veiculo, vaga);
@@ -72,13 +72,13 @@ public class ParqueEstacionamento implements Serializable {
         }
     }
 
-    public void liberarVaga(Vaga vaga, LocalDateTime saida) {
+    public void liberarVaga(VagaDAO vaga, LocalDateTime saida) {
         vaga.liberar();
         vagasOcupadas.remove(vaga);
     }
 
-    public Vaga obterVagaPorIdentificador(String identificador) {
-        for (Vaga vaga : vagas) {
+    public VagaDAO obterVagaPorIdentificador(String identificador) {
+        for (VagaDAO vaga : vagas) {
             if (vaga.getIdentificador().equals(identificador)) {
                 return vaga;
             }
@@ -86,7 +86,7 @@ public class ParqueEstacionamento implements Serializable {
         return null;
     }
 
-    public Vaga obterVagaPorVeiculo(Veiculo veiculo) {
+    public VagaDAO obterVagaPorVeiculo(Veiculo veiculo) {
         return vagasOcupadas.get(veiculo);
     }
 
@@ -103,11 +103,11 @@ public class ParqueEstacionamento implements Serializable {
         return new ArrayList<>(clientes);
     }
 
-    public ArrayList<Vaga> listarVagas() {
+    public ArrayList<VagaDAO> listarVagas() {
         return new ArrayList<>(vagas);
     }
 
-    public ArrayList<Vaga> getVagas() {
+    public ArrayList<VagaDAO> getVagas() {
         return vagas;
     }
     

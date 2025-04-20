@@ -5,7 +5,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.*;
 
 import DAO.ClienteDAO;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import modal.ParqueEstacionamento;
 
 import java.util.ArrayList;

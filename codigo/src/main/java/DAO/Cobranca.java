@@ -11,7 +11,7 @@ public class Cobranca {
     private int minutosTotal;
 
     // Método para calcular o valor de cobrança com base no tempo de estacionamento e no tipo de vaga
-    public double calcularValor(int minutosEstacionado, Vaga vaga) {
+    public double calcularValor(int minutosEstacionado, VagaDAO vaga) {
         double valorBase = minutosEstacionado * TAXA_POR_MINUTO;
         if (valorBase > MAX_COBRANCA) {
             valorBase = MAX_COBRANCA;
@@ -53,7 +53,7 @@ public class Cobranca {
             int horaFinal = leitor.nextInt();
 
             int minutosEstacionados = calcularMinutos(horaInicio, horaFinal);
-            Vaga vaga = estacionamento.obterVagaPorVeiculo(veiculo);
+            VagaDAO vaga = estacionamento.obterVagaPorVeiculo(veiculo);
             if (vaga == null) {
                 System.out.println("Vaga não encontrada para o veículo.");
                 return;

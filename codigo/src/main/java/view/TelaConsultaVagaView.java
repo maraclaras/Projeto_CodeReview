@@ -1,7 +1,7 @@
 package view;
 
 import DAO.ClienteDAO;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DAO.Veiculo;
 import modal.ParqueEstacionamento;  
 
@@ -109,7 +109,7 @@ public class TelaConsultaVagaView extends javax.swing.JFrame {
         // Exibir o resultado
         if (veiculo != null) {
             // Buscar a vaga onde o veículo está estacionado
-            Vaga vaga = ParqueEstacionamento.getInstancia(0, 0).obterVagaPorVeiculo(veiculo);
+            VagaDAO vaga = ParqueEstacionamento.getInstancia(0, 0).obterVagaPorVeiculo(veiculo);
             if (vaga != null) {
                 resultadoVagaLabel.setText("Vaga: " + vaga.getIdentificador());
             } else {

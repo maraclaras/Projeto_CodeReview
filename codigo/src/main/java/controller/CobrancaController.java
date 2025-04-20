@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import DAO.ClienteDAO;
 import DAO.Cobranca;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DTO.VeiculoDTO;
 import modal.ParqueEstacionamento;
 
@@ -33,7 +33,7 @@ public class CobrancaController {
             return;
         }
 
-        Vaga vaga = estacionamento.obterVagaPorVeiculo(veiculo);
+        VagaDAO vaga = estacionamento.obterVagaPorVeiculo(veiculo);
         if (vaga == null) {
             System.out.println("Vaga não encontrada para o veículo.");
             return;

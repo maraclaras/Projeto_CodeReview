@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import DAO.ClienteDAO;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DAO.Veiculo;
 import controller.ParqueEstacionamentoController;
 import controller.ClienteController;
@@ -102,7 +102,7 @@ public class EstacionamentoView {
         System.out.print("Digite a placa do veículo: ");
         String placa = scanner.nextLine();
         Veiculo veiculo = new Veiculo(placa);
-        Vaga vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);
+        VagaDAO vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);
         if (vaga != null) {
             System.out.println("Veículo está estacionado na vaga: " + vaga.getIdentificador());
         } else {
@@ -115,7 +115,7 @@ public class EstacionamentoView {
         for (ClienteDAO cliente : estacionamentoController.listarClientes()) {
             System.out.println("Cliente: " + cliente.getNome() + ", CPF: " + cliente.getCpf());
             for (Veiculo veiculo : cliente.listarVeiculos()) {
-                Vaga vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);
+                VagaDAO vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);
                 if (vaga != null) {
                     System.out.println("  Veículo: " + veiculo.getPlaca() + ", Vaga: " + vaga.getIdentificador());
                 } else {

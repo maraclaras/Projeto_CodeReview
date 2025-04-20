@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import DAO.ClienteDAO;
-import DAO.Vaga;
+import DAO.VagaDAO;
 import DTO.VeiculoDTO;
 
 public class ParqueEstacionamentoController {
@@ -31,8 +31,8 @@ public class ParqueEstacionamentoController {
         return parqueEstacionamento.buscarClientePorCpf(cpf);
     }
 
-    public Vaga liberarVaga(String identificador, LocalDateTime saida) throws VagaInvalidaException {
-        Vaga vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
+    public VagaDAO liberarVaga(String identificador, LocalDateTime saida) throws VagaInvalidaException {
+        VagaDAO vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
         if (vaga != null && vaga.isOcupada()) {
             vaga.liberar();
             parqueEstacionamento.liberarVaga(vaga, saida);  
@@ -43,7 +43,7 @@ public class ParqueEstacionamentoController {
     }
 
     public void estacionarClienteNaVaga(String identificador, Veiculo veiculo, LocalDateTime entrada) throws VagaInvalidaException {
-        Vaga vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
+        VagaDAO vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
         if (vaga != null && !vaga.isOcupada()) {
             parqueEstacionamento.estacionarVeiculo(vaga, veiculo, entrada);
 
@@ -53,7 +53,7 @@ public class ParqueEstacionamentoController {
         }
     }
 
-    public Vaga obterVagaPorVeiculo(Veiculo veiculo) {
+    public VagaDAO obterVagaPorVeiculo(Veiculo veiculo) {
         return parqueEstacionamento.obterVagaPorVeiculo(veiculo);
     }
 

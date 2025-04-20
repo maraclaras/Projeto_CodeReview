@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class ParqueEstacionamentoDAO {
     private ArrayList<ClienteDAO> clientes;
-    private ArrayList<Vaga> vagas;
+    private ArrayList<VagaDAO> vagas;
 
-    public ParqueEstacionamentoDAO(ArrayList<ClienteDAO> clientes, ArrayList<Vaga> vagas) {
+    public ParqueEstacionamentoDAO(ArrayList<ClienteDAO> clientes, ArrayList<VagaDAO> vagas) {
         this.clientes = clientes;
         this.vagas = vagas;
     }
@@ -15,7 +15,7 @@ public class ParqueEstacionamentoDAO {
         return clientes;
     }
 
-    public ArrayList<Vaga> getVagas() {
+    public ArrayList<VagaDAO> getVagas() {
         return vagas;
     }
 }
