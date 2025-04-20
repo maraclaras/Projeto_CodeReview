@@ -2,7 +2,7 @@ package view;
 
 import javax.swing.*;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Veiculo;
 
 import java.util.ArrayList;
@@ -190,7 +190,7 @@ public class TelaListarVeiculosView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String cpf = jTextField1.getText();
-        Cliente cliente = Cliente.buscarClientePorCpf(cpf);
+        ClienteDAO cliente = ClienteDAO.buscarClientePorCpf(cpf);
         
         if (cliente != null) {
             jTextField2.setText(cliente.getNome()); // Exibe o nome do cliente

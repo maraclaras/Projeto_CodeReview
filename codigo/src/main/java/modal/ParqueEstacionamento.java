@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import DAO.Veiculo;
 import exceptions.VagaInvalidaException;
@@ -14,9 +14,9 @@ public class ParqueEstacionamento implements Serializable {
     private static final long serialVersionUID = 1L;
     
     // Tornar clientes estático para acesso global
-    public static ArrayList<Cliente> clientes = new ArrayList<>();  // Mudança para static
+    public static ArrayList<ClienteDAO> clientes = new ArrayList<>();  // Mudança para static
 
-    private HashMap<Veiculo, Cliente> veiculoClienteMap;
+    private HashMap<Veiculo, ClienteDAO> veiculoClienteMap;
     private HashMap<Veiculo, Vaga> vagasOcupadas;
     private ArrayList<Vaga> vagas;
 
@@ -49,12 +49,12 @@ public class ParqueEstacionamento implements Serializable {
         return instancia;
     }
 
-    public static void registrarCliente(Cliente cliente) {
+    public static void registrarCliente(ClienteDAO cliente) {
         clientes.add(cliente);  // Adiciona o cliente à lista estática
     }
 
-    public static Cliente buscarClientePorCpf(String cpf) {
-        for (Cliente cliente : clientes) {
+    public static ClienteDAO buscarClientePorCpf(String cpf) {
+        for (ClienteDAO cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return cliente;
             }
@@ -90,7 +90,7 @@ public class ParqueEstacionamento implements Serializable {
         return vagasOcupadas.get(veiculo);
     }
 
-    public Veiculo buscarVeiculoPorCliente(Cliente cliente) {
+    public Veiculo buscarVeiculoPorCliente(ClienteDAO cliente) {
         for (Veiculo veiculo : veiculoClienteMap.keySet()) {
             if (veiculoClienteMap.get(veiculo).equals(cliente)) {
                 return veiculo;
@@ -99,7 +99,7 @@ public class ParqueEstacionamento implements Serializable {
         return null;
     }
 
-    public ArrayList<Cliente> listarClientes() {
+    public ArrayList<ClienteDAO> listarClientes() {
         return new ArrayList<>(clientes);
     }
 

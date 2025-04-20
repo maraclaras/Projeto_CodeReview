@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import DAO.Veiculo;
 import controller.ParqueEstacionamentoController;
@@ -69,7 +69,7 @@ public class EstacionamentoView {
     private void estacionarVeiculo() {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
-        Cliente cliente = clienteController.buscarCliente(cpf);
+        ClienteDAO cliente = clienteController.buscarCliente(cpf);
         if (cliente != null) {
             System.out.print("Digite a placa do veículo: ");
             String placa = scanner.nextLine();
@@ -112,7 +112,7 @@ public class EstacionamentoView {
 
     private void listarClientesEVagas() {
         System.out.println("Lista de clientes e suas vagas:");
-        for (Cliente cliente : estacionamentoController.listarClientes()) {
+        for (ClienteDAO cliente : estacionamentoController.listarClientes()) {
             System.out.println("Cliente: " + cliente.getNome() + ", CPF: " + cliente.getCpf());
             for (Veiculo veiculo : cliente.listarVeiculos()) {
                 Vaga vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);

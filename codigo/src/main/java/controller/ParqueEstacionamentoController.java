@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import DAO.Veiculo;
 
@@ -23,11 +23,11 @@ public class ParqueEstacionamentoController {
         return parqueEstacionamento;
     }
 
-    public void registrarCliente(Cliente cliente) {
+    public void registrarCliente(ClienteDAO cliente) {
         parqueEstacionamento.registrarCliente(cliente);
     }
 
-    public Cliente buscarClientePorCpf(String cpf) {
+    public ClienteDAO buscarClientePorCpf(String cpf) {
         return parqueEstacionamento.buscarClientePorCpf(cpf);
     }
 
@@ -57,7 +57,7 @@ public class ParqueEstacionamentoController {
         return parqueEstacionamento.obterVagaPorVeiculo(veiculo);
     }
 
-    public ArrayList<Cliente> listarClientes() {
+    public ArrayList<ClienteDAO> listarClientes() {
         return parqueEstacionamento.listarClientes();
     }
 

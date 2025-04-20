@@ -7,24 +7,22 @@ import java.util.Iterator;
 
 import modal.ParqueEstacionamento;
 
-public class Cliente implements Serializable {
+public class ClienteDAO implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String nome;
-    private String cpf;
     private List<Veiculo> listaVeiculos;
-    public static ArrayList<Cliente> clientes = new ArrayList<>(); 
+    public static ArrayList<ClienteDAO> clientes = new ArrayList<>(); 
 
-    public Cliente(String nome, String cpf) {
+    public ClienteDAO(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
         this.listaVeiculos = new ArrayList<>();
     }
     
-    public static List<Cliente> listarTodosOsClientes() {
+    public static List<ClienteDAO> listarTodosOsClientes() {
         return new ArrayList<>(clientes);
     }
 
-    private static Cliente instancia;
+    private static ClienteDAO instancia;
 
     public void adicionarVeiculo(Veiculo veiculo) {
         listaVeiculos.add(veiculo);
@@ -32,22 +30,6 @@ public class Cliente implements Serializable {
 
     public List<Veiculo> listarVeiculos() {
         return listaVeiculos;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public Veiculo buscarVeiculoPorPlaca(String placa) {
@@ -59,8 +41,8 @@ public class Cliente implements Serializable {
         return null;  // Retorna null caso o veículo não seja encontrado
     }
 
-    public static Cliente buscarClientePorCpf(String cpf) {
-        for (Cliente cliente : clientes) {
+    public static ClienteDAO buscarClientePorCpf(String cpf) {
+        for (ClienteDAO cliente : clientes) {
             if (cliente.getCpf().equals(cpf)) {
                 return cliente;
             }
@@ -69,12 +51,12 @@ public class Cliente implements Serializable {
     }   
 
     
-    public ArrayList<Cliente> listarClientes() {
+    public ArrayList<ClienteDAO> listarClientes() {
         return new ArrayList<>(clientes);
     }
 
     public static boolean alterarNomeCliente(String cpf, String novoNome) {
-        for (Cliente cliente : listarTodosOsClientes()) {
+        for (ClienteDAO cliente : listarTodosOsClientes()) {
             if (cliente.getCpf().equals(cpf)) {
                 cliente.setNome(novoNome);
                 return true; // Retorna verdadeiro se a alteração for feita
@@ -84,9 +66,9 @@ public class Cliente implements Serializable {
     }
 
     public static boolean removerCliente(String cpf) {
-        Iterator<Cliente> iterator = clientes.iterator();
+        Iterator<ClienteDAO> iterator = clientes.iterator();
         while (iterator.hasNext()) {
-            Cliente cliente = iterator.next();
+            ClienteDAO cliente = iterator.next();
             if (cliente.getCpf().equals(cpf)) {
                 iterator.remove(); // Remove o cliente da lista
                 return true; // Retorna sucesso
@@ -95,7 +77,7 @@ public class Cliente implements Serializable {
         return false; // Cliente não encontrado
     }
 
-    public static void adicionarCliente(Cliente cliente) {
+    public static void adicionarCliente(ClienteDAO cliente) {
         clientes.add(cliente);
     }
 

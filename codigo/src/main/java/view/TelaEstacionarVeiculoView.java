@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import DAO.Veiculo;
 import exceptions.VagaInvalidaException;
@@ -122,7 +122,7 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
         String cpf = jTextField1.getText();  // Pega o CPF informado no campo de texto
         
         // Busca o cliente pela lista de clientes
-        Cliente cliente = ParqueEstacionamento.clientes.stream()
+        ClienteDAO cliente = ParqueEstacionamento.clientes.stream()
                             .filter(c -> c.getCpf().equals(cpf))
                             .findFirst()
                             .orElse(null);
@@ -141,7 +141,7 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
         String identificadorVaga = jTextField3.getText();
     
         // Encontre o cliente
-        Cliente cliente = ParqueEstacionamento.clientes.stream()
+        ClienteDAO cliente = ParqueEstacionamento.clientes.stream()
                             .filter(c -> c.getCpf().equals(jTextField1.getText()))
                             .findFirst()
                             .orElse(null);

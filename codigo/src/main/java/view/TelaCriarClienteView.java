@@ -1,6 +1,6 @@
 package view;
 import javax.swing.JOptionPane;
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import view.TelaListarClientesView;
 
 public class TelaCriarClienteView extends javax.swing.JFrame {
@@ -120,10 +120,10 @@ public class TelaCriarClienteView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
             // Cria um novo cliente
-            Cliente cliente = new Cliente(nome, cpf);
+            ClienteDAO cliente = new ClienteDAO(nome, cpf);
     
             // Adiciona à lista estática de clientes
-            Cliente.clientes.add(cliente);
+            ClienteDAO.clientes.add(cliente);
     
             JOptionPane.showMessageDialog(this, "Cliente " + nome + " salvo com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     

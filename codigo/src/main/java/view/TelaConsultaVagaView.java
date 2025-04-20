@@ -1,6 +1,6 @@
 package view;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import DAO.Veiculo;
 import modal.ParqueEstacionamento;  
@@ -99,7 +99,7 @@ public class TelaConsultaVagaView extends javax.swing.JFrame {
 
         // Buscar o veículo associado à placa (supondo que você tenha esse método na classe ParqueEstacionamento)
         Veiculo veiculo = null;
-        for (Cliente cliente : ParqueEstacionamento.clientes) {
+        for (ClienteDAO cliente : ParqueEstacionamento.clientes) {
             veiculo = cliente.buscarVeiculoPorPlaca(placa);  // Método que busca o veículo do cliente pela placa
             if (veiculo != null) {
                 break;

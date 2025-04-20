@@ -2,7 +2,7 @@
 package view;
 import javax.swing.JOptionPane;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Veiculo;
 
 public class TelaAdiconarVeiculoClienteView extends javax.swing.JFrame {
@@ -11,8 +11,8 @@ public class TelaAdiconarVeiculoClienteView extends javax.swing.JFrame {
         initComponents();
     }
 
-    private Cliente buscarClientePorCpf(String cpf) {
-        return Cliente.buscarClientePorCpf(cpf);
+    private ClienteDAO buscarClientePorCpf(String cpf) {
+        return ClienteDAO.buscarClientePorCpf(cpf);
     }
     
 
@@ -117,7 +117,7 @@ public class TelaAdiconarVeiculoClienteView extends javax.swing.JFrame {
         }
         
         // Busca o cliente pelo CPF
-        Cliente cliente = buscarClientePorCpf(cpf);
+        ClienteDAO cliente = buscarClientePorCpf(cpf);
         if (cliente == null) {
             JOptionPane.showMessageDialog(this, "Cliente com CPF " + cpf + " não encontrado.", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
@@ -150,7 +150,7 @@ public class TelaAdiconarVeiculoClienteView extends javax.swing.JFrame {
         }
     
         // Simula busca de cliente (você pode substituir pelo método real)
-        Cliente cliente = buscarClientePorCpf(cpf);
+        ClienteDAO cliente = buscarClientePorCpf(cpf);
     
         if (cliente != null) {
             String nome = cliente.getNome();

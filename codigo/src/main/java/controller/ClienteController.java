@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import BancoDados.BancoDados;
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Veiculo;
 import modal.ParqueEstacionamento;
 
@@ -25,7 +25,7 @@ public class ClienteController {
     }
 
     // Adiciona um cliente no banco de dados
-    public void adicionarCliente(Cliente cliente) {
+    public void adicionarCliente(ClienteDAO cliente) {
         String sql = "INSERT INTO Cliente (nome, cpf) VALUES (?, ?)";
     
         try (Connection conexao = BancoDados.getConexao();
@@ -48,7 +48,7 @@ public class ClienteController {
     }
 
     // Busca um cliente no banco de dados pelo CPF
-    public Cliente buscarCliente(String cpf) {
+    public ClienteDAO buscarCliente(String cpf) {
         String sql = "SELECT * FROM Cliente WHERE cpf = ?";
 
         try (Connection conexao = BancoDados.getConexao();
@@ -59,7 +59,7 @@ public class ClienteController {
 
             if (rs.next()) {
                 String nome = rs.getString("nome");
-                return new Cliente(nome, cpf);
+                return new ClienteDAO(nome, cpf);
             }
 
         } catch (SQLException e) {
@@ -122,8 +122,8 @@ public class ClienteController {
     }
 
     // Lista todos os clientes no banco de dados
-    public List<Cliente> listarClientes() {
-        List<Cliente> clientes = new ArrayList<>();
+    public List<ClienteDAO> listarClientes() {
+        List<ClienteDAO> clientes = new ArrayList<>();
         String sql = "SELECT * FROM Cliente";
 
         try (Connection conexao = BancoDados.getConexao();
@@ -133,7 +133,7 @@ public class ClienteController {
             while (rs.next()) {
                 String nome = rs.getString("nome");
                 String cpf = rs.getString("cpf");
-                clientes.add(new Cliente(nome, cpf));
+                clientes.add(new ClienteDAO(nome, cpf));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -3,7 +3,7 @@ package view;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 
 public class TelaRemoverClienteView extends javax.swing.JFrame {
 
@@ -97,7 +97,7 @@ public class TelaRemoverClienteView extends javax.swing.JFrame {
         if (cpf.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, insira um CPF.", "Erro", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (Cliente.buscarClientePorCpf(cpf) != null) { // Verifica se o cliente existe
+            if (ClienteDAO.buscarClientePorCpf(cpf) != null) { // Verifica se o cliente existe
                 JOptionPane.showMessageDialog(this, "Cliente encontrado! CPF: " + cpf, "Cliente Encontrado", JOptionPane.INFORMATION_MESSAGE);
                 jButton2.setEnabled(true); // Habilita o botão "Confirmar Remoção"
             } else {
@@ -115,7 +115,7 @@ public class TelaRemoverClienteView extends javax.swing.JFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover o cliente com CPF " + cpf + "?",
                                                         "Confirmação de Remoção", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                boolean removido = Cliente.removerCliente(cpf); // Remove do repositório
+                boolean removido = ClienteDAO.removerCliente(cpf); // Remove do repositório
                 if (removido) {
                     JOptionPane.showMessageDialog(this, "Cliente com CPF " + cpf + " removido com sucesso!",
                                                   "Sucesso", JOptionPane.INFORMATION_MESSAGE);

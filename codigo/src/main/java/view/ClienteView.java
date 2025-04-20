@@ -2,7 +2,7 @@ package view;
 import java.util.Scanner;
 
 import BancoDados.BancoDados;
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Cobranca;
 import DAO.Vaga;
 import DAO.Veiculo;
@@ -75,7 +75,7 @@ public class ClienteView {
         String nome = scanner.nextLine();
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
-        Cliente novoCliente = new Cliente(nome, cpf);
+        ClienteDAO novoCliente = new ClienteDAO(nome, cpf);
         clienteController.adicionarCliente(novoCliente);
         System.out.println("Cliente cadastrado com sucesso.");
     }
@@ -84,7 +84,7 @@ public class ClienteView {
     private void alterarCliente() {
         System.out.print("Digite o CPF do cliente para alterar: ");
         String cpf = scanner.nextLine();
-        Cliente cliente = clienteController.buscarCliente(cpf);
+        ClienteDAO cliente = clienteController.buscarCliente(cpf);
         if (cliente != null) {
             System.out.print("Digite o novo nome do cliente: ");
             String novoNome = scanner.nextLine();
@@ -110,7 +110,7 @@ public class ClienteView {
     private void adicionarVeiculo() {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
-        Cliente cliente = clienteController.buscarCliente(cpf);
+        ClienteDAO cliente = clienteController.buscarCliente(cpf);
         if (cliente != null) {
             System.out.print("Digite a placa do veículo: ");
             String placa = scanner.nextLine();
@@ -126,7 +126,7 @@ public class ClienteView {
     private void listarVeiculos() {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
-        Cliente cliente = clienteController.buscarCliente(cpf);
+        ClienteDAO cliente = clienteController.buscarCliente(cpf);
         if (cliente != null) {
             System.out.println("Veículos do cliente " + cliente.getNome() + ":");
             for (Veiculo veiculo : cliente.listarVeiculos()) {
@@ -140,7 +140,7 @@ public class ClienteView {
     // Lista todos os clientes
     private void listarTodosClientes() {
         System.out.println("Lista de todos os clientes:");
-        for (Cliente cliente : clienteController.listarClientes()) {
+        for (ClienteDAO cliente : clienteController.listarClientes()) {
             System.out.println("Nome: " + cliente.getNome() + ", CPF: " + cliente.getCpf());
         }
     }
@@ -150,7 +150,7 @@ public class ClienteView {
         System.out.print("Digite o CPF do cliente: ");
         String cpf = scanner.nextLine();
 
-        Cliente cliente = parqueEstacionamento.buscarClientePorCpf(cpf);
+        ClienteDAO cliente = parqueEstacionamento.buscarClientePorCpf(cpf);
         if (cliente != null) {
             Veiculo veiculo = parqueEstacionamento.buscarVeiculoPorCliente(cliente);
             if (veiculo != null) {

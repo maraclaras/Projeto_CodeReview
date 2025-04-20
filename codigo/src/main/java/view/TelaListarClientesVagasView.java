@@ -3,7 +3,7 @@ package view;
 import modal.ParqueEstacionamento;
 import javax.swing.*;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import DAO.Veiculo;
 
@@ -95,7 +95,7 @@ public class TelaListarClientesVagasView extends javax.swing.JFrame {
         List<String> listaClientesVagas = new ArrayList<>();
 
         // Iterar pelos clientes e associar a vaga
-        for (Cliente cliente : ParqueEstacionamento.clientes) {
+        for (ClienteDAO cliente : ParqueEstacionamento.clientes) {
             String clienteNome = cliente.getNome();
             // Procurar se o cliente tem alguma vaga associada
             Vaga vagaAssociada = null;

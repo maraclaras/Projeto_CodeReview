@@ -3,15 +3,15 @@ package DAO;
 import java.util.ArrayList;
 
 public class ParqueEstacionamentoDAO {
-    private ArrayList<Cliente> clientes;
+    private ArrayList<ClienteDAO> clientes;
     private ArrayList<Vaga> vagas;
 
-    public ParqueEstacionamentoDAO(ArrayList<Cliente> clientes, ArrayList<Vaga> vagas) {
+    public ParqueEstacionamentoDAO(ArrayList<ClienteDAO> clientes, ArrayList<Vaga> vagas) {
         this.clientes = clientes;
         this.vagas = vagas;
     }
 
-    public ArrayList<Cliente> getClientes() {
+    public ArrayList<ClienteDAO> getClientes() {
         return clientes;
     }
 

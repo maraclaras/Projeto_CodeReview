@@ -34,7 +34,7 @@ public class Cobranca {
         try {
             System.out.println("Digite o CPF do cliente:");
             String cpf = leitor.next();
-            Cliente cliente = estacionamento.buscarClientePorCpf(cpf);
+            ClienteDAO cliente = estacionamento.buscarClientePorCpf(cpf);
             if (cliente == null) {
                 System.out.println("Cliente não encontrado.");
                 return;

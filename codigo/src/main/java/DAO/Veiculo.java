@@ -7,7 +7,7 @@ public class Veiculo implements Serializable {
     private static final long serialVersionUID = 1L;
     private String placa;
     private String modelo;
-    private Cliente proprietario;
+    private ClienteDAO proprietario;
 
     // Construtor que inicializa a placa e o modelo
     public Veiculo(String placa, String modelo) {
@@ -22,7 +22,7 @@ public class Veiculo implements Serializable {
     }
 
     // Novo construtor que inicializa a placa e o proprietário
-    public Veiculo(String placa, Cliente proprietario) {
+    public Veiculo(String placa, ClienteDAO proprietario) {
         this.placa = placa;
         this.proprietario = proprietario;
         proprietario.adicionarVeiculo(this); // Vincula o veículo ao cliente
@@ -39,12 +39,12 @@ public class Veiculo implements Serializable {
     }
 
     // Getter para o proprietário
-    public Cliente getProprietario() {
+    public ClienteDAO getProprietario() {
         return proprietario;
     }
 
     // Método para vincular o cliente (proprietário) ao veículo
-    public void vincularCliente(Cliente cliente) {
+    public void vincularCliente(ClienteDAO cliente) {
         this.proprietario = cliente;
         cliente.adicionarVeiculo(this); // Vincula o veículo ao cliente
     }

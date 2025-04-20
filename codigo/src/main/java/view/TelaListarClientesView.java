@@ -4,7 +4,7 @@ package view;
 import javax.swing.DefaultListModel;
 import javax.swing.*;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Vaga;
 import modal.ParqueEstacionamento;
 
@@ -83,17 +83,17 @@ public class TelaListarClientesView extends javax.swing.JFrame {
         telaCliente.setVisible(true);
         this.setVisible(false);
     }    
-    private List<Cliente> listaClientes;
+    private List<ClienteDAO> listaClientes;
     private void preencherListarClientes() {
         List<String> listaClientes = new ArrayList<>();
     
-        List<Cliente> clientes = Cliente.listarTodosOsClientes();
+        List<ClienteDAO> clientes = ClienteDAO.listarTodosOsClientes();
         if (clientes == null) {
             System.err.println("Erro: Cliente.listarTodosOsClientes() retornou null.");
             return;
         }
     
-        for (Cliente cliente : clientes) {
+        for (ClienteDAO cliente : clientes) {
             if (cliente.getCpf() == null) {
                 System.err.println("Cliente tem cpf nulo.");
                 continue;
@@ -112,10 +112,10 @@ public class TelaListarClientesView extends javax.swing.JFrame {
     }
 
     public void atualizarLista() {
-        List<Cliente> clientes = Cliente.listarTodosOsClientes();
+        List<ClienteDAO> clientes = ClienteDAO.listarTodosOsClientes();
         DefaultListModel<String> listModel = new DefaultListModel<>();
         
-        for (Cliente cliente : clientes) {
+        for (ClienteDAO cliente : clientes) {
             listModel.addElement(cliente.getNome() + " - CPF: " + cliente.getCpf());
         }
         jList3.setModel(listModel);

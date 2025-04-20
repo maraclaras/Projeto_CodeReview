@@ -2,7 +2,7 @@ package view;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
-import DAO.Cliente;
+import DAO.ClienteDAO;
 
 public class TelaAlterarClienteView extends javax.swing.JFrame {
 
@@ -111,7 +111,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         return;
     }
 
-    boolean atualizado = Cliente.alterarNomeCliente(cpf, novoNome); // Método para atualizar no repositório
+    boolean atualizado = ClienteDAO.alterarNomeCliente(cpf, novoNome); // Método para atualizar no repositório
     if (atualizado) {
         JOptionPane.showMessageDialog(this, "Cliente atualizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         
