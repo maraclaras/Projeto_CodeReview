@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import BancoDados.BancoDados;
-import DAO.Cliente;
+import DAO.ClienteDAO;
 import DAO.Veiculo;
 
 public class VeiculoController {
