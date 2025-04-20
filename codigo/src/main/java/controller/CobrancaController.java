@@ -5,7 +5,7 @@ import java.util.Scanner;
 import DAO.ClienteDAO;
 import DAO.Cobranca;
 import DAO.Vaga;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 import modal.ParqueEstacionamento;
 
 public class CobrancaController {

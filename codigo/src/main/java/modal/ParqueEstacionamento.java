@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 import DAO.ClienteDAO;
 import DAO.Vaga;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 import exceptions.VagaInvalidaException;
 
 public class ParqueEstacionamento implements Serializable {

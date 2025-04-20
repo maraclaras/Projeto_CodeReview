@@ -9,7 +9,7 @@ import java.util.List;
 
 import BancoDados.BancoDados;
 import DAO.ClienteDAO;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 
 public class VeiculoController {
 

@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 import BancoDados.BancoDados;
 import DAO.ClienteDAO;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 import modal.ParqueEstacionamento;
 
 public class ClienteController {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import DAO.ClienteDAO;
 import DAO.Vaga;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 
 public class ParqueEstacionamentoController {
     private ParqueEstacionamento parqueEstacionamento;
