@@ -4,6 +4,7 @@ import DAO.CobrancaDAO;
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
 import DTO.CobrancaDTO;
+import exceptions.CobrancaInvalidaException;
 
 public class CobrancaController {
     private static final float TAXA_POR_MINUTO = 4.0f;
@@ -28,9 +29,20 @@ public class CobrancaController {
     }
 
     public void registrarCobranca(String cpf, int minutosEstacionados, VagaDAO vaga) {
-        double valorCobrado = calcularValor(minutosEstacionados, vaga);
-        CobrancaDTO cobranca = new CobrancaDTO(cpf, valorCobrado, minutosEstacionados);
-        cobrancaDAO.registrarCobranca(cobranca);
-        System.out.println("Cobrança registrada para o cliente com CPF " + cpf + ": R$ " + valorCobrado);
+    if (cpf == null || cpf.isEmpty()) {
+        throw new CobrancaInvalidaException("CPF não pode ser nulo ou vazio.");
     }
+    if (minutosEstacionados <= 0) {
+        throw new CobrancaInvalidaException("Minutos estacionados devem ser maiores que zero.");
+    }
+    if (vaga == null) {
+        throw new CobrancaInvalidaException("Vaga não pode ser nula.");
+    }
+
+    double valorCobrado = calcularValor(minutosEstacionados, vaga);
+    CobrancaDTO cobranca = new CobrancaDTO(cpf, valorCobrado, minutosEstacionados);
+    cobrancaDAO.registrarCobranca(cobranca);
+
+    System.out.println("Cobrança registrada para o cliente com CPF " + cpf + ": R$ " + valorCobrado);
+}
 }
