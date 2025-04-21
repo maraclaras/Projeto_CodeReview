@@ -1,6 +1,5 @@
 package controller;
 
-import modal.ParqueEstacionamento;
 import exceptions.VagaInvalidaException;
 
 import java.io.IOException;
@@ -9,22 +8,23 @@ import java.util.ArrayList;
 
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
+import DTO.ParqueEstacionamentoDAO;
 import DTO.VeiculoDTO;
 
 public class ParqueEstacionamentoController {
-    private ParqueEstacionamento parqueEstacionamento;
+    private ParqueEstacionamentoDAO parqueEstacionamento;
 
     // Construtor que inicializa o ParqueEstacionamento
     public ParqueEstacionamentoController(int numFilas, int numVagasPorFila) {
-        this.parqueEstacionamento = ParqueEstacionamento.getInstancia(numFilas, numVagasPorFila);
+        this.parqueEstacionamento = ParqueEstacionamentoDAO.getInstancia(numFilas, numVagasPorFila);
     }
 
     public void registrarCliente(ClienteDAO cliente) {
-        ParqueEstacionamento.registrarCliente(cliente);
+        ParqueEstacionamentoDAO.registrarCliente(cliente);
     }
 
     public ClienteDAO buscarClientePorCpf(String cpf) {
-        return ParqueEstacionamento.buscarClientePorCpf(cpf);
+        return ParqueEstacionamentoDAO.buscarClientePorCpf(cpf);
     }
 
     public VagaDAO liberarVaga(String identificador, LocalDateTime saida) throws VagaInvalidaException {
@@ -48,6 +48,6 @@ public class ParqueEstacionamentoController {
     }
 
     public void carregarDados(String caminhoArquivo) throws IOException, ClassNotFoundException {
-        this.parqueEstacionamento = ParqueEstacionamento.carregarDados(caminhoArquivo);
+        this.parqueEstacionamento = ParqueEstacionamentoDAO.carregarDados(caminhoArquivo);
     }
 }

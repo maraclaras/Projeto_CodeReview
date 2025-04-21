@@ -2,7 +2,7 @@ package DAO;
 
 import java.util.Scanner;
 
-import modal.ParqueEstacionamento;
+import DTO.ParqueEstacionamentoDAO;
 
 public class Cobranca {
     private static final float TAXA_POR_MINUTO = 4.0f;
@@ -30,7 +30,7 @@ public class Cobranca {
     }
 
     // Método para calcular a taxa para um cliente específico
-    public void calcularTaxaCliente(ParqueEstacionamento estacionamento, Scanner leitor) {
+    public void calcularTaxaCliente(ParqueEstacionamentoDAO estacionamento, Scanner leitor) {
         try {
             System.out.println("Digite o CPF do cliente:");
             String cpf = leitor.next();

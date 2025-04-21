@@ -2,8 +2,8 @@ package view;
 
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
-import DAO.Veiculo;
-import modal.ParqueEstacionamento;  
+import DTO.ParqueEstacionamentoDAO;
+import DTO.VeiculoDTO;  
 
 public class TelaConsultaVagaView extends javax.swing.JFrame {
 
@@ -99,7 +99,7 @@ public class TelaConsultaVagaView extends javax.swing.JFrame {
 
         // Buscar o veículo associado à placa (supondo que você tenha esse método na classe ParqueEstacionamento)
         Veiculo veiculo = null;
-        for (ClienteDAO cliente : ParqueEstacionamento.clientes) {
+        for (ClienteDAO cliente : ParqueEstacionamentoDAO.clientes) {
             veiculo = cliente.buscarVeiculoPorPlaca(placa);  // Método que busca o veículo do cliente pela placa
             if (veiculo != null) {
                 break;
@@ -109,7 +109,7 @@ public class TelaConsultaVagaView extends javax.swing.JFrame {
         // Exibir o resultado
         if (veiculo != null) {
             // Buscar a vaga onde o veículo está estacionado
-            VagaDAO vaga = ParqueEstacionamento.getInstancia(0, 0).obterVagaPorVeiculo(veiculo);
+            VagaDAO vaga = ParqueEstacionamentoDAO.getInstancia(0, 0).obterVagaPorVeiculo(veiculo);
             if (vaga != null) {
                 resultadoVagaLabel.setText("Vaga: " + vaga.getIdentificador());
             } else {

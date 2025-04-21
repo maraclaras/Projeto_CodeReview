@@ -3,9 +3,10 @@ package DAO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
 
-import modal.ParqueEstacionamento;
+import DTO.ParqueEstacionamentoDAO;
+
+import java.util.Iterator;
 
 public class ClienteDAO implements Serializable {
     private static final long serialVersionUID = 1L;

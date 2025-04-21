@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
 import DAO.Veiculo;
+import DTO.ParqueEstacionamentoDAO;
 import exceptions.VagaInvalidaException;
-import modal.ParqueEstacionamento;
 
 public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
 
@@ -122,7 +122,7 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
         String cpf = jTextField1.getText();  // Pega o CPF informado no campo de texto
         
         // Busca o cliente pela lista de clientes
-        ClienteDAO cliente = ParqueEstacionamento.clientes.stream()
+        ClienteDAO cliente = ParqueEstacionamentoDAO.clientes.stream()
                             .filter(c -> c.getCpf().equals(cpf))
                             .findFirst()
                             .orElse(null);
@@ -141,14 +141,14 @@ public class TelaEstacionarVeiculoView extends javax.swing.JFrame {
         String identificadorVaga = jTextField3.getText();
     
         // Encontre o cliente
-        ClienteDAO cliente = ParqueEstacionamento.clientes.stream()
+        ClienteDAO cliente = ParqueEstacionamentoDAO.clientes.stream()
                             .filter(c -> c.getCpf().equals(jTextField1.getText()))
                             .findFirst()
                             .orElse(null);
     
         if (cliente != null) {
             // Crie uma instância de ParqueEstacionamento (presumindo que você tenha a instância criada)
-            ParqueEstacionamento parque = ParqueEstacionamento.getInstancia(5, 10);  // Obter a instância única
+            ParqueEstacionamentoDAO parque = ParqueEstacionamentoDAO.getInstancia(5, 10);  // Obter a instância única
 
             // Encontrar a vaga
             VagaDAO vaga = parque.getVagas().stream()

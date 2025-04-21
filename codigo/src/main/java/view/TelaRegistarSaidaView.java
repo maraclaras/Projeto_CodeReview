@@ -1,10 +1,9 @@
 package view;
 
-import modal.ParqueEstacionamento;
-
 import javax.swing.JOptionPane;
 
 import DAO.VagaDAO;
+import DTO.ParqueEstacionamentoDAO;
 
 public class TelaRegistarSaidaView extends javax.swing.JFrame {
 
@@ -87,7 +86,7 @@ public class TelaRegistarSaidaView extends javax.swing.JFrame {
         }
 
         // Acessando a instância do ParqueEstacionamento
-        ParqueEstacionamento parqueEstacionamento = ParqueEstacionamento.getInstancia(3, 5); // Ajuste os parâmetros conforme necessário
+        ParqueEstacionamentoDAO parqueEstacionamento = ParqueEstacionamentoDAO.getInstancia(3, 5); // Ajuste os parâmetros conforme necessário
         VagaDAO vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
 
         if (vaga == null) {

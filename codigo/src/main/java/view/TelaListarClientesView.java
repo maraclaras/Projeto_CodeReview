@@ -6,7 +6,7 @@ import javax.swing.*;
 
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
-import modal.ParqueEstacionamento;
+import DTO.ParqueEstacionamentoDAO;
 
 import java.util.ArrayList;
 import java.util.List;

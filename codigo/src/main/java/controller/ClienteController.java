@@ -10,16 +10,16 @@ import java.util.Scanner;
 
 import BancoDados.BancoDados;
 import DAO.ClienteDAO;
+import DTO.ParqueEstacionamentoDAO;
 import DTO.VeiculoDTO;
-import modal.ParqueEstacionamento;
 
 public class ClienteController {
 
-    private ParqueEstacionamento estacionamento;
+    private ParqueEstacionamentoDAO estacionamento;
     private Scanner leitor;
 
     // Construtor que recebe ParqueEstacionamento e Scanner
-    public ClienteController(ParqueEstacionamento estacionamento, Scanner leitor) {
+    public ClienteController(ParqueEstacionamentoDAO estacionamento, Scanner leitor) {
         this.estacionamento = estacionamento;
         this.leitor = leitor;
     }

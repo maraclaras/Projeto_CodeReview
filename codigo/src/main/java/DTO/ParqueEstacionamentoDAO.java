@@ -1,4 +1,4 @@
-package modal;
+package DTO;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -7,10 +7,9 @@ import java.util.HashMap;
 
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
-import DTO.VeiculoDTO;
 import exceptions.VagaInvalidaException;
 
-public class ParqueEstacionamento implements Serializable {
+public class ParqueEstacionamentoDAO implements Serializable {
     private static final long serialVersionUID = 1L;
     
     // Tornar clientes estático para acesso global
@@ -21,10 +20,10 @@ public class ParqueEstacionamento implements Serializable {
     private ArrayList<VagaDAO> vagas;
 
     // Instância estática única
-    private static ParqueEstacionamento instancia;
+    private static ParqueEstacionamentoDAO instancia;
 
     // Construtor privado para prevenir a criação de múltiplas instâncias
-    private ParqueEstacionamento(int numFilas, int numVagasPorFila) {
+    private ParqueEstacionamentoDAO(int numFilas, int numVagasPorFila) {
         vagas = new ArrayList<>();
         vagasOcupadas = new HashMap<>();
         veiculoClienteMap = new HashMap<>();
@@ -42,9 +41,9 @@ public class ParqueEstacionamento implements Serializable {
     }
 
     // Método para obter a instância única
-    public static ParqueEstacionamento getInstancia(int numFilas, int numVagasPorFila) {
+    public static ParqueEstacionamentoDAO getInstancia(int numFilas, int numVagasPorFila) {
         if (instancia == null) {
-            instancia = new ParqueEstacionamento(numFilas, numVagasPorFila);
+            instancia = new ParqueEstacionamentoDAO(numFilas, numVagasPorFila);
         }
         return instancia;
     }
@@ -118,9 +117,9 @@ public class ParqueEstacionamento implements Serializable {
         }
     }
 
-    public static ParqueEstacionamento carregarDados(String caminhoArquivo) throws IOException, ClassNotFoundException {
+    public static ParqueEstacionamentoDAO carregarDados(String caminhoArquivo) throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(caminhoArquivo))) {
-            return (ParqueEstacionamento) ois.readObject();
+            return (ParqueEstacionamentoDAO) ois.readObject();
         }
     }
 }

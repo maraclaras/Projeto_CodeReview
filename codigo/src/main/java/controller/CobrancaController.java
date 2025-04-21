@@ -5,14 +5,14 @@ import java.util.Scanner;
 import DAO.ClienteDAO;
 import DAO.Cobranca;
 import DAO.VagaDAO;
+import DTO.ParqueEstacionamentoDAO;
 import DTO.VeiculoDTO;
-import modal.ParqueEstacionamento;
 
 public class CobrancaController {
-    private ParqueEstacionamento estacionamento;
+    private ParqueEstacionamentoDAO estacionamento;
     private Scanner leitor;
 
-    public CobrancaController(ParqueEstacionamento estacionamento, Scanner leitor) {
+    public CobrancaController(ParqueEstacionamentoDAO estacionamento, Scanner leitor) {
         this.estacionamento = estacionamento;
         this.leitor = leitor;
     }

@@ -3,7 +3,7 @@ package view;
 import javax.swing.*;
 
 import DAO.ClienteDAO;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 
 import java.util.ArrayList;
 import java.util.List;

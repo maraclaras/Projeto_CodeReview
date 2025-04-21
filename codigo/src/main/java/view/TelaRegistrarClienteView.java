@@ -3,7 +3,7 @@ package view;
 import javax.swing.JOptionPane;
 
 import DAO.ClienteDAO;
-import modal.ParqueEstacionamento;
+import DTO.ParqueEstacionamentoDAO;
 
 public class TelaRegistrarClienteView extends javax.swing.JFrame {
 
@@ -122,7 +122,7 @@ public class TelaRegistrarClienteView extends javax.swing.JFrame {
         } else {
             // Criar o cliente e adicionar ao parque
             ClienteDAO cliente = new ClienteDAO(nome, cpf);
-            ParqueEstacionamento.clientes.add(cliente); // Adiciona o cliente à lista compartilhada
+            ParqueEstacionamentoDAO.clientes.add(cliente); // Adiciona o cliente à lista compartilhada
             JOptionPane.showMessageDialog(this, "Cliente " + nome + " registrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     
             // Voltar para a tela de estacionamento
