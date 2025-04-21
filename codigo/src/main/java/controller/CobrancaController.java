@@ -1,53 +1,37 @@
 package controller;
 
-import java.util.Scanner;
-
+import DAO.CobrancaDAO;
 import DAO.ClienteDAO;
-import DAO.Cobranca;
 import DAO.VagaDAO;
-import DTO.ParqueEstacionamentoDAO;
-import DTO.VeiculoDTO;
+import DTO.CobrancaDTO;
+import exceptions.HorarioInvalidoException;
 
 public class CobrancaController {
-    private ParqueEstacionamentoDAO estacionamento;
-    private Scanner leitor;
+    private static final float TAXA_POR_MINUTO = 4.0f;
+    private static final float MAX_COBRANCA = 50.0f;
+    private CobrancaDAO cobrancaDAO;
 
-    public CobrancaController(ParqueEstacionamentoDAO estacionamento, Scanner leitor) {
-        this.estacionamento = estacionamento;
-        this.leitor = leitor;
+    public CobrancaController(CobrancaDAO cobrancaDAO) {
+        this.cobrancaDAO = cobrancaDAO;
     }
 
-    public void calcularTaxaCliente() {
-        System.out.println("Digite o CPF do cliente:");
-        String cpf = leitor.next();
-
-        ClienteDAO cliente = estacionamento.buscarClientePorCpf(cpf);
-        if (cliente == null) {
-            System.out.println("Cliente não encontrado.");
-            return;
+    public double calcularValor(int minutosEstacionados, VagaDAO vaga) {
+        double valorBase = minutosEstacionados * TAXA_POR_MINUTO;
+        if (valorBase > MAX_COBRANCA) {
+            valorBase = MAX_COBRANCA;
         }
+        return valorBase;
+    }
 
-        Veiculo veiculo = estacionamento.buscarVeiculoPorCliente(cliente);
-        if (veiculo == null) {
-            System.out.println("Veículo não encontrado para o cliente.");
-            return;
-        }
+    public int calcularMinutos(int horaInicio, int horaFinal) {
+        int minutosTotal = horaFinal - horaInicio;
+        return minutosTotal;
+    }
 
-        VagaDAO vaga = estacionamento.obterVagaPorVeiculo(veiculo);
-        if (vaga == null) {
-            System.out.println("Vaga não encontrada para o veículo.");
-            return;
-        }
-
-        System.out.print("Digite o tempo (em minutos) que o veículo ficou estacionado: ");
-        int minutos = leitor.nextInt();
-        leitor.nextLine(); // Consumir a quebra de linha
-
-        Cobranca cobranca = new Cobranca();
-        double valor = cobranca.calcularValor(minutos, vaga);
-        System.out.println("Valor total da cobrança: R$ " + valor);
-
-        // Cobrar o cliente
-        cobranca.cobrarCliente(cpf, valor);
+    public void registrarCobranca(String cpf, int minutosEstacionados, VagaDAO vaga) {
+        double valorCobrado = calcularValor(minutosEstacionados, vaga);
+        CobrancaDTO cobranca = new CobrancaDTO(cpf, valorCobrado, minutosEstacionados);
+        cobrancaDAO.registrarCobranca(cobranca);
+        System.out.println("Cobrança registrada para o cliente com CPF " + cpf + ": R$ " + valorCobrado);
     }
 }
