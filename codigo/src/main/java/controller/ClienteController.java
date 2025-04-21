@@ -6,36 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import BancoDados.BancoDados;
-import DAO.ClienteDAO;
-import DTO.ParqueEstacionamentoDAO;
-import DTO.VeiculoDTO;
+import DTO.ClienteDTO;
+import DTO.ClientePCDDTO;
+import DTO.ClienteVIPDTO;
 
 public class ClienteController {
 
-    private ParqueEstacionamentoDAO estacionamento;
-    private Scanner leitor;
-
-    // Construtor que recebe ParqueEstacionamento e Scanner
-    public ClienteController(ParqueEstacionamentoDAO estacionamento, Scanner leitor) {
-        this.estacionamento = estacionamento;
-        this.leitor = leitor;
-    }
-
     // Adiciona um cliente no banco de dados
-    public void adicionarCliente(ClienteDAO cliente) {
-        String sql = "INSERT INTO Cliente (nome, cpf) VALUES (?, ?)";
-    
+    public void adicionarCliente(ClienteDTO cliente) {
+        String sql = "INSERT INTO Cliente (id, nome, email) VALUES (?, ?, ?)";
+
         try (Connection conexao = BancoDados.getConexao();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
-    
-            stmt.setString(1, cliente.getNome());
-            stmt.setString(2, cliente.getCpf());
-    
+
+            stmt.setLong(1, cliente.getId());
+            stmt.setString(2, cliente.getName());
+            stmt.setString(3, cliente.getEmail());
+
             int rowsAffected = stmt.executeUpdate();
-    
+
             if (rowsAffected > 0) {
                 System.out.println("Cliente adicionado com sucesso!");
             } else {
@@ -47,19 +38,20 @@ public class ClienteController {
         }
     }
 
-    // Busca um cliente no banco de dados pelo CPF
-    public ClienteDAO buscarCliente(String cpf) {
-        String sql = "SELECT * FROM Cliente WHERE cpf = ?";
+    // Busca um cliente no banco de dados pelo ID
+    public ClienteDTO buscarCliente(Long id) {
+        String sql = "SELECT * FROM Cliente WHERE id = ?";
 
         try (Connection conexao = BancoDados.getConexao();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-            stmt.setString(1, cpf);
+            stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                String nome = rs.getString("nome");
-                return new ClienteDAO(nome, cpf);
+                String name = rs.getString("nome");
+                String email = rs.getString("email");
+                return new ClienteVIPDTO(id, name, email); // Exemplo com ClienteVIPDTO
             }
 
         } catch (SQLException e) {
@@ -71,14 +63,14 @@ public class ClienteController {
     }
 
     // Altera um cliente existente no banco de dados
-    public boolean alterarCliente(String cpf, String novoNome) {
-        String sql = "UPDATE Cliente SET nome = ? WHERE cpf = ?";
+    public boolean alterarCliente(Long id, String novoNome) {
+        String sql = "UPDATE Cliente SET nome = ? WHERE id = ?";
 
         try (Connection conexao = BancoDados.getConexao();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
             stmt.setString(1, novoNome);
-            stmt.setString(2, cpf);
+            stmt.setLong(2, id);
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -96,14 +88,14 @@ public class ClienteController {
         return false;
     }
 
-    // Remove um cliente do banco de dados pelo CPF
-    public boolean removerCliente(String cpf) {
-        String sql = "DELETE FROM Cliente WHERE cpf = ?";
+    // Remove um cliente do banco de dados pelo ID
+    public boolean removerCliente(Long id) {
+        String sql = "DELETE FROM Cliente WHERE id = ?";
 
         try (Connection conexao = BancoDados.getConexao();
              PreparedStatement stmt = conexao.prepareStatement(sql)) {
 
-            stmt.setString(1, cpf);
+            stmt.setLong(1, id);
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -122,8 +114,8 @@ public class ClienteController {
     }
 
     // Lista todos os clientes no banco de dados
-    public List<ClienteDAO> listarClientes() {
-        List<ClienteDAO> clientes = new ArrayList<>();
+    public List<ClienteDTO> listarClientes() {
+        List<ClienteDTO> clientes = new ArrayList<>();
         String sql = "SELECT * FROM Cliente";
 
         try (Connection conexao = BancoDados.getConexao();
@@ -131,9 +123,10 @@ public class ClienteController {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                String nome = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                clientes.add(new ClienteDAO(nome, cpf));
+                Long id = rs.getLong("id");
+                String name = rs.getString("nome");
+                String email = rs.getString("email");
+                clientes.add(new ClientePCDDTO(id, name, email)); // Exemplo com ClientePCDDTO
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -141,32 +134,5 @@ public class ClienteController {
         }
 
         return clientes;
-    }
-
-    // Adiciona um veículo ao cliente no banco de dados
-    public boolean adicionarVeiculo(String cpf, Veiculo veiculo) {
-        String sql = "INSERT INTO Veiculo (placa, modelo, cpf_cliente) VALUES (?, ?, ?)";
-
-        try (Connection conexao = BancoDados.getConexao();
-             PreparedStatement stmt = conexao.prepareStatement(sql)) {
-
-            stmt.setString(1, veiculo.getPlaca());
-            stmt.setString(2, veiculo.getModelo());
-            stmt.setString(3, cpf);
-
-            int rowsAffected = stmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("Veículo adicionado com sucesso!");
-                return true;
-            } else {
-                System.out.println("Falha ao adicionar o veículo.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Erro ao adicionar veículo: " + e.getMessage());
-        }
-
-        return false;
     }
 }
