@@ -14,46 +14,28 @@ import DTO.VeiculoDTO;
 public class ParqueEstacionamentoController {
     private ParqueEstacionamento parqueEstacionamento;
 
+    // Construtor que inicializa o ParqueEstacionamento
     public ParqueEstacionamentoController(int numFilas, int numVagasPorFila) {
-        // Usando o método getInstancia() para obter a instância do ParqueEstacionamento
         this.parqueEstacionamento = ParqueEstacionamento.getInstancia(numFilas, numVagasPorFila);
     }
 
-    public ParqueEstacionamento getParqueEstacionamento() {
-        return parqueEstacionamento;
-    }
-
     public void registrarCliente(ClienteDAO cliente) {
-        parqueEstacionamento.registrarCliente(cliente);
+        ParqueEstacionamento.registrarCliente(cliente);
     }
 
     public ClienteDAO buscarClientePorCpf(String cpf) {
-        return parqueEstacionamento.buscarClientePorCpf(cpf);
+        return ParqueEstacionamento.buscarClientePorCpf(cpf);
     }
 
     public VagaDAO liberarVaga(String identificador, LocalDateTime saida) throws VagaInvalidaException {
-        VagaDAO vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
-        if (vaga != null && vaga.isOcupada()) {
-            vaga.liberar();
-            parqueEstacionamento.liberarVaga(vaga, saida);  
-            return vaga;
-        } else {
-            throw new VagaInvalidaException("A vaga já está livre ou não foi encontrada.");
-        }
+        return parqueEstacionamento.liberarVaga(identificador, saida);
     }
 
-    public void estacionarClienteNaVaga(String identificador, Veiculo veiculo, LocalDateTime entrada) throws VagaInvalidaException {
-        VagaDAO vaga = parqueEstacionamento.obterVagaPorIdentificador(identificador);
-        if (vaga != null && !vaga.isOcupada()) {
-            parqueEstacionamento.estacionarVeiculo(vaga, veiculo, entrada);
-
-           // System.out.println("Vaga " + identificador + " ocupada.");
-        } else {
-            throw new VagaInvalidaException("A vaga já está ocupada ou não foi encontrada.");
-        }
+    public void estacionarClienteNaVaga(String identificador, VeiculoDTO veiculo, LocalDateTime entrada) throws VagaInvalidaException {
+        parqueEstacionamento.estacionarVeiculo(parqueEstacionamento.obterVagaPorIdentificador(identificador), veiculo, entrada);
     }
 
-    public VagaDAO obterVagaPorVeiculo(Veiculo veiculo) {
+    public VagaDAO obterVagaPorVeiculo(VeiculoDTO veiculo) {
         return parqueEstacionamento.obterVagaPorVeiculo(veiculo);
     }
 

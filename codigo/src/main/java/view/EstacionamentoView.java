@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
-import DAO.Veiculo;
+import DTO.VeiculoDTO;
 import controller.ParqueEstacionamentoController;
 import controller.ClienteController;
 import exceptions.VagaInvalidaException;
@@ -16,10 +16,10 @@ public class EstacionamentoView {
     private ParqueEstacionamentoController estacionamentoController;
     private ClienteController clienteController;
 
-    // Construtor atualizado para receber ClienteController
+    // Construtor atualizado para receber ClienteController e ParqueEstacionamentoController
     public EstacionamentoView(ParqueEstacionamentoController estacionamentoController, ClienteController clienteController) {
         this.estacionamentoController = estacionamentoController;
-        this.clienteController = clienteController; // Inicialização correta
+        this.clienteController = clienteController;
         this.scanner = new Scanner(System.in);
     }
 
@@ -63,7 +63,7 @@ public class EstacionamentoView {
                 default:
                     System.out.println("Opção inválida.");
             }
-        } while (opcao != 8);
+        } while (opcao != 7);
     }
 
     private void estacionarVeiculo() {
@@ -73,7 +73,9 @@ public class EstacionamentoView {
         if (cliente != null) {
             System.out.print("Digite a placa do veículo: ");
             String placa = scanner.nextLine();
-            Veiculo veiculo = new Veiculo(placa, cliente);
+            System.out.print("Digite o modelo do veículo: ");
+            String modelo = scanner.nextLine();
+            VeiculoDTO veiculo = new VeiculoDTO(placa, modelo, cliente.getNome());
             System.out.print("Digite o identificador da vaga: ");
             String identificador = scanner.nextLine();
             try {
@@ -101,7 +103,7 @@ public class EstacionamentoView {
     private void consultarVagaVeiculo() {
         System.out.print("Digite a placa do veículo: ");
         String placa = scanner.nextLine();
-        Veiculo veiculo = new Veiculo(placa);
+        VeiculoDTO veiculo = new VeiculoDTO(placa, null, null);
         VagaDAO vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);
         if (vaga != null) {
             System.out.println("Veículo está estacionado na vaga: " + vaga.getIdentificador());
@@ -114,7 +116,7 @@ public class EstacionamentoView {
         System.out.println("Lista de clientes e suas vagas:");
         for (ClienteDAO cliente : estacionamentoController.listarClientes()) {
             System.out.println("Cliente: " + cliente.getNome() + ", CPF: " + cliente.getCpf());
-            for (Veiculo veiculo : cliente.listarVeiculos()) {
+            for (VeiculoDTO veiculo : clienteController.listarVeiculos(cliente.getCpf())) {
                 VagaDAO vaga = estacionamentoController.obterVagaPorVeiculo(veiculo);
                 if (vaga != null) {
                     System.out.println("  Veículo: " + veiculo.getPlaca() + ", Vaga: " + vaga.getIdentificador());
@@ -126,7 +128,6 @@ public class EstacionamentoView {
     }
 
     private void salvarDados() {
-       // C:\Users\luisa\OneDrive\Área de Trabalho\facul ou trabalho\puc\danilo\turmamanha-g3-puc-lovers\codigo\src\main\java\data
         String caminhoArquivo = "./data";
         try {
             estacionamentoController.salvarDados(caminhoArquivo);
