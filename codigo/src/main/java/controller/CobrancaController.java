@@ -4,7 +4,6 @@ import DAO.CobrancaDAO;
 import DAO.ClienteDAO;
 import DAO.VagaDAO;
 import DTO.CobrancaDTO;
-import exceptions.HorarioInvalidoException;
 
 public class CobrancaController {
     private static final float TAXA_POR_MINUTO = 4.0f;
